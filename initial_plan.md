@@ -18,7 +18,7 @@ Local storage for Q, K, and V tiles. These buffers enable data reuse across mult
 ### 3. Dot-Product Engine
 Computes partial attention scores:
 
-s_ij = (q_i · k_j) / sqrt(d)
+![equation](https://latex.codecogs.com/png.image?\dpi{120}s_{ij}=\frac{q_i\cdot k_j}{\sqrt{d}})
 
 This is implemented as a pipelined MAC array with optional loop unrolling for parallelism.
 
