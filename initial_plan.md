@@ -1,8 +1,3 @@
-
-
-
-
-
 # IP Architecture
 
 ## Major Sub-Modules
@@ -18,7 +13,9 @@ Local storage for Q, K, and V tiles. These buffers enable data reuse across mult
 ### 3. Dot-Product Engine
 Computes partial attention scores:
 
-![equation](https://latex.codecogs.com/png.image?\dpi{120}s_{ij}=\frac{q_i\cdot k_j}{\sqrt{d}})
+$$
+s_{ij} = \frac{q_i \cdot k_j}{\sqrt{d}}
+$$
 
 This is implemented as a pipelined MAC array with optional loop unrolling for parallelism.
 
@@ -27,13 +24,15 @@ Computes row-wise maximum values and performs score scaling. This module is crit
 
 ### 5. Exponential / Softmax Unit
 Computes exponentials (via LUT or approximation) and accumulates normalization terms. It maintains:
-- running max \(m_i\)
-- normalization factor \(l_i\)
+- running max $m_i$
+- normalization factor $l_i$
 
 ### 6. Weighted Value Accumulator
 Multiplies softmax weights with V tiles and accumulates partial outputs:
 
-sum_j (p_ij * v_j)
+$$
+z_i = \sum_j (p_{ij} \cdot v_j)
+$$
 
 ### 7. Output Writeback Module
 Writes the final output tile \(O\) back to off-chip memory.
@@ -87,9 +86,9 @@ This follows a **producer–consumer pipeline**:
 ### Control Signals
 
 - `start`, `done` (top-level execution control)
-- tile loop counters (`q_idx`, `k_idx`)
+- tile loop counters ($q_{idx}$, $k_{idx}$)
 - valid/ready handshakes between modules
-- synchronization signals for updating \(m_i\), \(l_i\), and accumulators
+- synchronization signals for updating $m_i$, $l_i$, and accumulators
 
 ---
 
@@ -136,7 +135,7 @@ Because modules are decoupled, optimizations can be applied locally without brea
 
 Modular design allows easy experimentation with:
 
-- tile sizes (\(B_Q\), \(B_K\))
+- tile sizes ($B_Q$), ($B_K$)
 - precision (float vs fixed-point)
 - parallelism (number of MAC units)
 
