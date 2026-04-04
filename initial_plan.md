@@ -1,16 +1,129 @@
-# IP Architecture
+## IP Architecture
+
+### What the IP does
+
+This IP implements a simplified FlashAttention-style accelerator for the forward pass of single-head transformer attention. Its goal is to compute attention efficiently without storing the full $N \times N$ score matrix in external memory.
+
+The problem it solves is that standard attention has high memory traffic because it forms all pairwise scores between queries and keys. This becomes expensive as sequence length grows. The IP applies to **machine learning inference**, especially transformer-based models on FPGA or SoC platforms.
+
+Its core functionality is:
+
+- receive $(Q)$, $(K)$, and $(V)$ matrices
+- compute scaled dot-product attention
+- apply softmax
+- produce the output matrix $(O)$
+
+Instead of materializing all attention scores at once, it processes the computation in tiles and keeps intermediate values on chip.
+
+---
+
+### How it interacts with the PS and peripherals
+
+The Processing System (PS) configures and controls the IP through control registers, typically over AXI-Lite. The PS is responsible for:
+
+- providing the base addresses of the $(Q)$, $(K)$, $(V)$, and output buffers
+- setting parameters such as sequence length $(N)$, embedding dimension $(d)$, and optional causal mode
+- starting the accelerator and checking completion
+
+The IP reads:
+
+- query matrix $(Q \in \mathbb{R}^{N \times d})$
+- key matrix $(K \in \mathbb{R}^{N \times d})$
+- value matrix $(V \in \mathbb{R}^{N \times d})$
+
+The IP writes:
+
+- output matrix $(O \in \mathbb{R}^{N \times d})$
+
+These transfers would typically use AXI master interfaces to DDR memory. Optional peripherals include DMA engines for efficient data movement between PS memory and PL logic.
+
+---
+
+### Mathematical operations involved
+
+The IP computes standard scaled dot-product attention:
+
+$$
+O = \text{softmax}\left(\frac{QK^T}{\sqrt{d}}\right)V
+$$
+
+For each query row \(q_i\), the score with key row \(k_j\) is:
+
+$$
+s\_{ij} = \frac{q_i \cdot k_j}{\sqrt{d}}
+$$
+
+The softmax probability is:
+
+$$
+p*{ij} = \frac{e^{s*{ij}}}{\sum*{k=1}^{N} e^{s*{ik}}}
+$$
+
+The final output row is:
+
+$$
+o*i = \sum*{j=1}^{N} p\_{ij} v_j
+$$
+
+To avoid storing the full score matrix, the IP uses tiled processing and an online softmax update. For each tile, it maintains:
+
+- a running maximum \(m_i\)
+- a running normalization term \(l_i\)
+- a running output accumulator \(o_i\)
+
+Updates per tile:
+
+$$
+m*i^{new} = \max(m_i, \max_j s*{ij})
+$$
+
+$$
+l*i^{new} = e^{m_i - m_i^{new}} l_i + \sum_j e^{s*{ij} - m_i^{new}}
+$$
+
+$$
+o*i^{new} =
+\frac{
+e^{m_i - m_i^{new}} l_i \cdot o_i +
+\sum_j e^{s*{ij} - m_i^{new}} v_j
+}{
+l_i^{new}
+}
+$$
+
+---
+
+```
+for each Q tile:
+load Q tile
+initialize m, l, and output accumulator
+
+for each K/V tile:
+    load K tile and V tile
+    compute scores = Q_tile x K_tile^T / sqrt(d)
+    update running max (m)
+    update normalization (l)
+    update output accumulator with V
+
+write output tile
+```
+
+### High-level algorithm
 
 ## Major Sub-Modules
 
 The proposed accelerator is decomposed into a set of well-defined hardware sub-modules that mirror the structure of the tiled attention algorithm:
 
 ### 1. Q/K/V Loader Module
+
 Responsible for reading input matrices (Q, K, V) from off-chip memory (e.g., DDR via AXI). It loads tiles of size \(B_Q \times d\) and \(B_K \times d\) into on-chip buffers (BRAM/URAM).
 
 ### 2. On-Chip Buffering System
+
 Local storage for Q, K, and V tiles. These buffers enable data reuse across multiple compute cycles, significantly reducing external memory bandwidth requirements.
 
 ### 3. Dot-Product Engine
+
 Computes partial attention scores:
 
 $$
@@ -20,14 +133,18 @@ $$
 This is implemented as a pipelined MAC array with optional loop unrolling for parallelism.
 
 ### 4. Score Processing Unit (Max + Scaling)
+
 Computes row-wise maximum values and performs score scaling. This module is critical for numerical stability and implements the online softmax update logic.
 
 ### 5. Exponential / Softmax Unit
+
 Computes exponentials (via LUT or approximation) and accumulates normalization terms. It maintains:
+
 - running max $m_i$
 - normalization factor $l_i$
 
 ### 6. Weighted Value Accumulator
+
 Multiplies softmax weights with V tiles and accumulates partial outputs:
 
 $$
@@ -35,10 +152,13 @@ z_i = \sum_j (p_{ij} \cdot v_j)
 $$
 
 ### 7. Output Writeback Module
+
 Writes the final output tile \(O\) back to off-chip memory.
 
 ### 8. Top-Level Controller (FSM / Dataflow Scheduler)
+
 Coordinates:
+
 - tile iteration over Q and K/V
 - buffer loading and reuse
 - synchronization between compute stages
@@ -52,13 +172,16 @@ The design follows a **streaming + tiled dataflow architecture**, with clear sep
 ### Interfaces
 
 #### AXI4 Master Interface
+
 - Used by loader and writeback modules for global memory access
 - Supports burst transfers for Q/K/V tiles
 
 #### AXI4-Lite Interface
+
 - Used for control signals (e.g., start, done, N, d, causal flag)
 
 #### AXI-Stream / FIFO Channels (Internal)
+
 - Connect compute stages in a pipelined fashion
 - Enable concurrent execution of:
   - load
@@ -69,17 +192,17 @@ The design follows a **streaming + tiled dataflow architecture**, with clear sep
 
 ### Dataflow Pattern
 
-1. Q tile is loaded into local buffer  
+1. Q tile is loaded into local buffer
 2. For each K/V tile:
-   - K and V tiles are streamed into compute units  
-   - Dot-product engine generates scores  
-   - Score processing unit updates max and normalization  
-   - Accumulator updates output tile  
-3. Final normalized output is written back  
+   - K and V tiles are streamed into compute units
+   - Dot-product engine generates scores
+   - Score processing unit updates max and normalization
+   - Accumulator updates output tile
+3. Final normalized output is written back
 
 This follows a **producer–consumer pipeline**:
-- Loader → Compute → Accumulator → Writeback
 
+- Loader → Compute → Accumulator → Writeback
 
 ---
 
@@ -97,6 +220,7 @@ This follows a **producer–consumer pipeline**:
 The decomposition is intentional and critical for both correctness and performance.
 
 ### 1. Incremental Development
+
 Each module can be designed and verified independently:
 
 - Start with **dot-product engine** (basic correctness)
@@ -109,11 +233,12 @@ This reduces debugging complexity significantly.
 ---
 
 ### 2. Independent Verification
+
 Each sub-module can be tested against the Python golden model:
 
-- Dot-product → compare partial scores  
-- Softmax → compare normalized weights  
-- Full pipeline → compare final output  
+- Dot-product → compare partial scores
+- Softmax → compare normalized weights
+- Full pipeline → compare final output
 
 This enables **unit testing before full system integration**, which is essential in hardware design.
 
@@ -123,9 +248,9 @@ This enables **unit testing before full system integration**, which is essential
 
 Different modules expose different optimization levers:
 
-- Dot-product → loop unrolling, DSP utilization  
-- Buffers → BRAM partitioning  
-- Dataflow → pipeline depth and initiation interval  
+- Dot-product → loop unrolling, DSP utilization
+- Buffers → BRAM partitioning
+- Dataflow → pipeline depth and initiation interval
 
 Because modules are decoupled, optimizations can be applied locally without breaking the entire system.
 
@@ -147,9 +272,9 @@ Without modularization, these changes would require rewriting large portions of 
 
 High-Level Synthesis (HLS) tools (e.g., Vitis HLS) exploit task-level parallelism using `DATAFLOW` pragmas. A modular architecture maps naturally to:
 
-- separate functions per module  
-- streaming FIFOs between them  
-- concurrent execution in hardware  
+- separate functions per module
+- streaming FIFOs between them
+- concurrent execution in hardware
 
 This results in higher throughput and better resource utilization.
 
@@ -159,9 +284,9 @@ This results in higher throughput and better resource utilization.
 
 The IP is structured as a pipeline of specialized compute and memory modules connected through streaming interfaces and controlled by a top-level scheduler. This modular decomposition:
 
-- mirrors the tiled attention algorithm  
-- enables efficient memory reuse  
-- supports parallel execution  
-- allows independent testing and optimization  
+- mirrors the tiled attention algorithm
+- enables efficient memory reuse
+- supports parallel execution
+- allows independent testing and optimization
 
 Overall, it ensures the design is both **implementable within a course timeline** and **representative of real accelerator architectures used in modern ML systems**.
