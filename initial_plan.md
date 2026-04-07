@@ -1,3 +1,8 @@
+## Team Members
+
+- Anuj Apte (aa13231)
+- Ricardo Díaz (erd9862)
+
 ## IP Architecture
 
 ### What the IP does
