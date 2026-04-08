@@ -52,45 +52,53 @@ $$
 O = \text{softmax}\left(\frac{QK^T}{\sqrt{d}}\right)V
 $$
 
-For each query row \(q_i\), the score with key row \(k_j\) is:
+For each query row $q_i$, the score with key row $k_j$ is:
 
 $$
-s\_{ij} = \frac{q_i \cdot k_j}{\sqrt{d}}
+s_{ij} = \frac{q_i \cdot k_j}{\sqrt{d}}
 $$
+
+When causal mode is enabled, future positions are masked before softmax:
+
+$$
+s_{ij} = -\infty \quad \text{for } j > i
+$$
+
+This ensures each query attends only to positions up to and including its own. The masking is applied by the Dot-Product Engine before scores are passed downstream.
 
 The softmax probability is:
 
 $$
-p*{ij} = \frac{e^{s*{ij}}}{\sum*{k=1}^{N} e^{s*{ik}}}
+p_{ij} = \frac{e^{s_{ij}}}{\sum_{k=1}^{N} e^{s_{ik}}}
 $$
 
 The final output row is:
 
 $$
-o*i = \sum*{j=1}^{N} p\_{ij} v_j
+o_i = \sum_{j=1}^{N} p_{ij} v_j
 $$
 
 To avoid storing the full score matrix, the IP uses tiled processing and an online softmax update. For each tile, it maintains:
 
-- a running maximum \(m_i\)
-- a running normalization term \(l_i\)
-- a running output accumulator \(o_i\)
+- a running maximum $m_i$
+- a running normalization term $l_i$
+- a running output accumulator $o_i$
 
 Updates per tile:
 
 $$
-m*i^{new} = \max(m_i, \max_j s*{ij})
+m_i^{new} = \max(m_i,\ \max_j s_{ij})
 $$
 
 $$
-l*i^{new} = e^{m_i - m_i^{new}} l_i + \sum_j e^{s*{ij} - m_i^{new}}
+l_i^{new} = e^{m_i - m_i^{new}} l_i + \sum_j e^{s_{ij} - m_i^{new}}
 $$
 
 $$
-o*i^{new} =
+o_i^{new} =
 \frac{
 e^{m_i - m_i^{new}} l_i \cdot o_i +
-\sum_j e^{s*{ij} - m_i^{new}} v_j
+\sum_j e^{s_{ij} - m_i^{new}} v_j
 }{
 l_i^{new}
 }
@@ -98,22 +106,22 @@ $$
 
 ---
 
+### High-level algorithm
+
 ```
 for each Q tile:
-load Q tile
-initialize m, l, and output accumulator
+    load Q tile
+    initialize m, l, and output accumulator
 
-for each K/V tile:
-    load K tile and V tile
-    compute scores = Q_tile x K_tile^T / sqrt(d)
-    update running max (m)
-    update normalization (l)
-    update output accumulator with V
+    for each K/V tile:
+        load K tile and V tile
+        compute scores = Q_tile x K_tile^T / sqrt(d)
+        update running max (m)
+        update normalization (l)
+        update output accumulator with V
 
-write output tile
+    write output tile
 ```
-
-### High-level algorithm
 
 ## Major Sub-Modules
 
@@ -121,7 +129,7 @@ The proposed accelerator is decomposed into a set of well-defined hardware sub-m
 
 ### 1. Q/K/V Loader Module
 
-Responsible for reading input matrices (Q, K, V) from off-chip memory (e.g., DDR via AXI). It loads tiles of size \(B_Q \times d\) and \(B_K \times d\) into on-chip buffers (BRAM/URAM).
+Responsible for reading input matrices (Q, K, V) from off-chip memory (e.g., DDR via AXI). It loads tiles of size $B_Q \times d$ and $B_K \times d$ into on-chip buffers (BRAM).
 
 ### 2. On-Chip Buffering System
 
@@ -137,30 +145,35 @@ $$
 
 This is implemented as a pipelined MAC array with optional loop unrolling for parallelism.
 
-### 4. Score Processing Unit (Max + Scaling)
+When causal mode is enabled, scores at future positions ($k_0 + j > q_0 + i$) are set to $-\infty$ immediately after computation and before being passed to the Online Softmax Unit. This causes their exponential to underflow to zero, effectively excluding them from the softmax.
 
-Computes row-wise maximum values and performs score scaling. This module is critical for numerical stability and implements the online softmax update logic.
+### 4. Online Softmax Unit
 
-### 5. Exponential / Softmax Unit
+Owns all online softmax state. For each K/V tile it:
 
-Computes exponentials (via LUT or approximation) and accumulates normalization terms. It maintains:
+- finds the tile row-wise maximum and updates the running max $m_i^{new} = \max(m_i,\ \max_j s_{ij})$
+- computes the correction factor $e^{m_i - m_i^{new}}$ to rescale prior state
+- computes per-element exponentials $e^{s_{ij} - m_i^{new}}$
+- updates the running normalization $l_i^{new} = e^{m_i - m_i^{new}} l_i + \sum_j e^{s_{ij} - m_i^{new}}$
+- emits the correction factor, scaled exponentials, and updated $l_i$ to the accumulator
 
-- running max $m_i$
-- normalization factor $l_i$
+Owns: $m_i$, $l_i$
 
-### 6. Weighted Value Accumulator
+### 5. Weighted Value Accumulator
 
-Multiplies softmax weights with V tiles and accumulates partial outputs:
+Receives the correction factor $e^{m_i - m_i^{new}}$, scaled exponentials $e^{s_{ij} - m_i^{new}}$, and updated $l_i^{new}$ from the Online Softmax Unit. Multiplies the scaled exponentials with the V tile and updates the running output accumulator. Because normalization is applied incrementally, the accumulator always holds a valid normalized partial result:
 
 $$
-z_i = \sum_j (p_{ij} \cdot v_j)
+o_i \leftarrow \frac{e^{m_i - m_i^{new}} \cdot l_i \cdot o_i + \sum_j e^{s_{ij} - m_i^{new}} \cdot v_j}{l_i^{new}}
 $$
 
-### 7. Output Writeback Module
+After the last K/V tile, $o_i$ is the final normalized output row — no separate normalization step is needed.
+
+### 6. Output Writeback Module
 
 Writes the final output tile \(O\) back to off-chip memory.
 
-### 8. Top-Level Controller (FSM / Dataflow Scheduler)
+### 7. Top-Level Controller (FSM / Dataflow Scheduler)
 
 Coordinates:
 
@@ -172,7 +185,7 @@ Coordinates:
 
 ## Sub-Module Communication
 
-The design follows a **streaming + tiled dataflow architecture**, with clear separation between memory movement and computation.
+The design follows a streaming + tiled dataflow architecture, with clear separation between memory movement and computation.
 
 ### Interfaces
 
@@ -188,10 +201,9 @@ The design follows a **streaming + tiled dataflow architecture**, with clear sep
 #### AXI-Stream / FIFO Channels (Internal)
 
 - Connect compute stages in a pipelined fashion
-- Enable concurrent execution of:
-  - load
-  - compute
-  - store
+- Can enable concurrent execution of load, compute, and store once
+  `#pragma HLS DATAFLOW` is applied at the top level; in the current
+  sequential HLS implementation this is a planned optimization
 
 ---
 
@@ -199,15 +211,15 @@ The design follows a **streaming + tiled dataflow architecture**, with clear sep
 
 1. Q tile is loaded into local buffer
 2. For each K/V tile:
-   - K and V tiles are streamed into compute units
+   - K and V tiles are loaded into on-chip buffers by the Loader
    - Dot-product engine generates scores
-   - Score processing unit updates max and normalization
-   - Accumulator updates output tile
+   - Online Softmax Unit updates running max, normalization, and emits scaled exponentials
+   - Weighted Value Accumulator updates output tile
 3. Final normalized output is written back
 
-This follows a **producer–consumer pipeline**:
+This follows a producer–consumer pipeline:
 
-- Loader → Compute → Accumulator → Writeback
+- Loader → Buffer → Compute → Accumulator → Writeback
 
 ---
 
@@ -228,9 +240,9 @@ The decomposition is intentional and critical for both correctness and performan
 
 Each module can be designed and verified independently:
 
-- Start with **dot-product engine** (basic correctness)
-- Add **softmax unit** (numerical stability)
-- Integrate **accumulator**
+- Start with dot-product engine (basic correctness)
+- Add online softmax unit (numerical stability)
+- Integrate weighted value accumulator
 - Finally integrate memory and control
 
 This reduces debugging complexity significantly.
@@ -242,10 +254,10 @@ This reduces debugging complexity significantly.
 Each sub-module can be tested against the Python golden model:
 
 - Dot-product → compare partial scores
-- Softmax → compare normalized weights
+- Online Softmax Unit → compare running max, normalization, and weights
 - Full pipeline → compare final output
 
-This enables **unit testing before full system integration**, which is essential in hardware design.
+This enables unit testing before full system integration, which is essential in hardware design.
 
 ---
 
@@ -275,7 +287,7 @@ Without modularization, these changes would require rewriting large portions of 
 
 ### 5. Alignment with HLS Dataflow Model
 
-High-Level Synthesis (HLS) tools (e.g., Vitis HLS) exploit task-level parallelism using `DATAFLOW` pragmas. A modular architecture maps naturally to:
+High-Level Synthesis tools (Vitis HLS) exploit task-level parallelism using `DATAFLOW` pragmas. A modular architecture maps naturally to:
 
 - separate functions per module
 - streaming FIFOs between them
@@ -294,4 +306,4 @@ The IP is structured as a pipeline of specialized compute and memory modules con
 - supports parallel execution
 - allows independent testing and optimization
 
-Overall, it ensures the design is both **implementable within a course timeline** and **representative of real accelerator architectures used in modern ML systems**.
+Overall, it ensures the design is both implementable within a course timeline and representative of real accelerator architectures used in modern ML systems.
