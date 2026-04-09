@@ -1,7 +1,7 @@
 ## Team Members
 
-- Anuj Apte (aa13231)
-- Ricardo Díaz (erd9862)
+- Anuj Apte (aa13231@nyu.edu)
+- Ricardo Díaz (erd9862@nyu.edu)
 
 ## IP Architecture
 
