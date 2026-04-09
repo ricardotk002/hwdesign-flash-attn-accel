@@ -2,6 +2,7 @@
 
 - Anuj Apte (aa13231@nyu.edu)
 - Ricardo Díaz (erd9862@nyu.edu)
+- Raquel Brown (rb6191@nyu.edu)
 
 ## IP Architecture
 
