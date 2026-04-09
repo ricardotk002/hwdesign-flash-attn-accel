@@ -1,3 +1,7 @@
+## GitHub Repository
+
+https://github.com/ricardotk002/hwdesign-flash-attn-accel
+
 ## Team Members
 
 - Anuj Apte (aa13231@nyu.edu)
