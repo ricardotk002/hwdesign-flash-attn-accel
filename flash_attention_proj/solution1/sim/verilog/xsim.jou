@@ -1,0 +1,15 @@
+#-----------------------------------------------------------
+# xsim v2023.2 (64-bit)
+# SW Build 4029153 on Fri Oct 13 20:13:54 MDT 2023
+# IP Build 4028589 on Sat Oct 14 00:45:43 MDT 2023
+# SharedData Build 4025554 on Tue Oct 10 17:18:54 MDT 2023
+# Start of session at: Fri May  8 14:40:57 2026
+# Process ID: 1132973
+# Current directory: /home/aa13231/Downloads/code/flash_attention_proj/solution1/sim/verilog
+# Command line: xsim -mode tcl -source {xsim.dir/flash_attention_hls/xsim_script.tcl}
+# Log file: /home/aa13231/Downloads/code/flash_attention_proj/solution1/sim/verilog/xsim.log
+# Journal file: /home/aa13231/Downloads/code/flash_attention_proj/solution1/sim/verilog/xsim.jou
+# Running On: ecs02.poly.edu, OS: Linux, CPU Frequency: 2200.000 MHz, CPU Physical cores: 32, Host memory: 1064159 MB
+#-----------------------------------------------------------
+source xsim.dir/flash_attention_hls/xsim_script.tcl
+source flash_attention_hls.tcl

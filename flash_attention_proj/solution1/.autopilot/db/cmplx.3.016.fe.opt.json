@@ -1,0 +1,17 @@
+{
+  "0": {
+    "basicblocks": 153,
+    "calls": "",
+    "file": "flash_attention.cpp",
+    "fileloc": 17,
+    "instructions": 938,
+    "loads": {
+      "L": 88
+    },
+    "name": "flash_attention_hls",
+    "stores": {
+      "L": 61
+    },
+    "total_instructions": 938
+  }
+}

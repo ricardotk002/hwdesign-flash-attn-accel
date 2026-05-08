@@ -1,0 +1,7 @@
+Running: xsim.dir/flash_attention_hls/xsimk -simmode gui -wdb flash_attention_hls.wdb -simrunnum 0 -socket 45673
+Design successfully loaded
+Design Loading Memory Usage: 107908 KB (Peak: 108868 KB)
+Design Loading CPU Usage: 180 ms
+Simulation completed
+Simulation Memory Usage: 195980 KB (Peak: 247176 KB)
+Simulation CPU Usage: 79760 ms

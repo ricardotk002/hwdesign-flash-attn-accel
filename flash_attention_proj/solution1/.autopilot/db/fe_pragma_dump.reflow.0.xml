@@ -1,0 +1,32 @@
+<pragmas>
+<pragma file="/wrk/ci/prod/2023.2/hls_product/continuous/689/2023.2/src/shared/hls/clib/hlsmath/src/c++/expfloat.cpp" line="21" pragmaType="inline" parentfunction="expf" off="0" region="0" recursive="0"/>
+<pragma file="/wrk/ci/prod/2023.2/hls_product/continuous/689/2023.2/src/shared/hls/clib/hlsmath/src/common/hls_exp_float.cpp" line="16" pragmaType="inline" parentfunction="exp" off="0" region="0" recursive="0"/>
+<pragma file="flash_attention.cpp" line="26" pragmaType="inline" parentfunction="flash_attention_hls" off="1" region="0" recursive="0"/>
+<pragma file="flash_attention.cpp" line="70" pragmaType="pipeline" parentfunction="flash_attention_hls" off="0" ii="1" rewind="0" style=""/>
+<pragma file="flash_attention.cpp" line="81" pragmaType="pipeline" parentfunction="flash_attention_hls" off="0" ii="1" rewind="0" style=""/>
+<pragma file="flash_attention.cpp" line="189" pragmaType="pipeline" parentfunction="flash_attention_hls" off="0" ii="1" rewind="0" style=""/>
+<pragma file="flash_attention.cpp" line="94" pragmaType="pipeline" parentfunction="flash_attention_hls" off="0" ii="1" rewind="0" style=""/>
+<pragma file="flash_attention.cpp" line="107" pragmaType="pipeline" parentfunction="flash_attention_hls" off="0" ii="1" rewind="0" style=""/>
+<pragma file="flash_attention.cpp" line="137" pragmaType="pipeline" parentfunction="flash_attention_hls" off="0" ii="1" rewind="0" style=""/>
+<pragma file="flash_attention.cpp" line="152" pragmaType="unroll" parentfunction="flash_attention_hls" factor="-1" skip_exit_check="0"/>
+<pragma file="flash_attention.cpp" line="173" pragmaType="unroll" parentfunction="flash_attention_hls" factor="4" skip_exit_check="0"/>
+<pragma file="flash_attention.cpp" line="111" pragmaType="unroll" parentfunction="flash_attention_hls" factor="-1" skip_exit_check="0"/>
+<pragma file="flash_attention.cpp" line="161" pragmaType="unroll" parentfunction="flash_attention_hls" factor="4" skip_exit_check="0"/>
+<pragma file="flash_attention.cpp" line="32" pragmaType="interface" parentfunction="flash_attention_hls" mode="m_axi" port="Q" bundle="gmem0" offset="slave" name="" depth="2048" num_read_outstanding="-1" num_write_outstanding="-1" max_burst_read_length="-1" max_burst_write_length="-1" latency="-1" max_widen_bitwidth="-1" channel=""/>
+<pragma file="flash_attention.cpp" line="33" pragmaType="interface" parentfunction="flash_attention_hls" mode="m_axi" port="K" bundle="gmem1" offset="slave" name="" depth="2048" num_read_outstanding="-1" num_write_outstanding="-1" max_burst_read_length="-1" max_burst_write_length="-1" latency="-1" max_widen_bitwidth="-1" channel=""/>
+<pragma file="flash_attention.cpp" line="34" pragmaType="interface" parentfunction="flash_attention_hls" mode="m_axi" port="V" bundle="gmem2" offset="slave" name="" depth="2048" num_read_outstanding="-1" num_write_outstanding="-1" max_burst_read_length="-1" max_burst_write_length="-1" latency="-1" max_widen_bitwidth="-1" channel=""/>
+<pragma file="flash_attention.cpp" line="35" pragmaType="interface" parentfunction="flash_attention_hls" mode="m_axi" port="O" bundle="gmem3" offset="slave" name="" depth="2048" num_read_outstanding="-1" num_write_outstanding="-1" max_burst_read_length="-1" max_burst_write_length="-1" latency="-1" max_widen_bitwidth="-1" channel=""/>
+<pragma file="flash_attention.cpp" line="38" pragmaType="interface" parentfunction="flash_attention_hls" mode="s_axilite" port="Q" bundle="ctrl" offset="-1" name="" clock="" impl="" register="0"/>
+<pragma file="flash_attention.cpp" line="39" pragmaType="interface" parentfunction="flash_attention_hls" mode="s_axilite" port="K" bundle="ctrl" offset="-1" name="" clock="" impl="" register="0"/>
+<pragma file="flash_attention.cpp" line="40" pragmaType="interface" parentfunction="flash_attention_hls" mode="s_axilite" port="V" bundle="ctrl" offset="-1" name="" clock="" impl="" register="0"/>
+<pragma file="flash_attention.cpp" line="41" pragmaType="interface" parentfunction="flash_attention_hls" mode="s_axilite" port="O" bundle="ctrl" offset="-1" name="" clock="" impl="" register="0"/>
+<pragma file="flash_attention.cpp" line="42" pragmaType="interface" parentfunction="flash_attention_hls" mode="s_axilite" port="N" bundle="ctrl" offset="-1" name="" clock="" impl="" register="0"/>
+<pragma file="flash_attention.cpp" line="43" pragmaType="interface" parentfunction="flash_attention_hls" mode="s_axilite" port="d" bundle="ctrl" offset="-1" name="" clock="" impl="" register="0"/>
+<pragma file="flash_attention.cpp" line="44" pragmaType="interface" parentfunction="flash_attention_hls" mode="s_axilite" port="causal" bundle="ctrl" offset="-1" name="" clock="" impl="" register="0"/>
+<pragma file="flash_attention.cpp" line="45" pragmaType="interface" parentfunction="flash_attention_hls" mode="s_axilite" port="" bundle="ctrl" offset="-1" name="" clock="" impl="" register="0"/>
+<pragma file="flash_attention.cpp" line="55" pragmaType="array_partition" parentfunction="flash_attention_hls" dim="2" factor="4" mode="cyclic" dynamic="0" variable="Qbuf"/>
+<pragma file="flash_attention.cpp" line="56" pragmaType="array_partition" parentfunction="flash_attention_hls" dim="2" factor="4" mode="cyclic" dynamic="0" variable="Kbuf"/>
+<pragma file="flash_attention.cpp" line="57" pragmaType="array_partition" parentfunction="flash_attention_hls" dim="2" factor="4" mode="cyclic" dynamic="0" variable="Vbuf"/>
+<pragma file="flash_attention.cpp" line="58" pragmaType="array_partition" parentfunction="flash_attention_hls" dim="2" factor="4" mode="cyclic" dynamic="0" variable="acc"/>
+<pragma file="flash_attention.cpp" line="148" pragmaType="array_partition" parentfunction="flash_attention_hls" dim="1" factor="4" mode="cyclic" dynamic="0" variable="weighted"/>
+</pragmas>

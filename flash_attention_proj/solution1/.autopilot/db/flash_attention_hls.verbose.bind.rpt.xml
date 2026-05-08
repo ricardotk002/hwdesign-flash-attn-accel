@@ -1,0 +1,58 @@
+<profile>
+
+<section name = "Vitis HLS Report for 'flash_attention_hls'" level="0">
+<item name = "Date">Fri May  8 14:39:22 2026
+</item>
+<item name = "Version">2023.2 (Build 4023990 on Oct 11 2023)</item>
+<item name = "Project">flash_attention_proj</item>
+<item name = "Solution">solution1 (Vivado IP Flow Target)</item>
+<item name = "Product family">zynq</item>
+<item name = "Target device">xc7z020-clg400-1</item>
+</section>
+
+<section name = "Performance Estimates" level="0">
+<item name = "Timing">
+<section name = "" level="1">
+<item name = "Summary"><table name="" hasTotal="0">
+<keys size="4">Clock, Target, Estimated, Uncertainty</keys>
+<column name="ap_clk">10.00 ns, 8.695 ns, 2.70 ns</column>
+</table>
+</item>
+</section>
+</item>
+<item name = "Latency">
+<section name = "" level="1">
+<item name = "Summary"><table name="" hasTotal="0">
+<keys size="8">, min, max, min, max, min, max, Type</keys>
+<column name="">?, ?, ?, ?, ?, ?, no</column>
+</table>
+</item>
+<item name = "Detail">
+<section name = "" level="1">
+<item name = "Instance"><table name="" hasTotal="0">
+<keys size="9">Instance, Module, min, max, min, max, min, max, Type</keys>
+<column name="grp_flash_attention_hls_Pipeline_LOAD_Q_VITIS_LOOP_69_1_fu_777">flash_attention_hls_Pipeline_LOAD_Q_VITIS_LOOP_69_1, ?, ?, ?, ?, ?, ?, no</column>
+<column name="grp_flash_attention_hls_Pipeline_VITIS_LOOP_80_2_fu_792">flash_attention_hls_Pipeline_VITIS_LOOP_80_2, ?, ?, ?, ?, ?, ?, no</column>
+<column name="grp_flash_attention_hls_Pipeline_LOAD_KV_VITIS_LOOP_93_3_fu_802">flash_attention_hls_Pipeline_LOAD_KV_VITIS_LOOP_93_3, ?, ?, ?, ?, ?, ?, no</column>
+<column name="grp_flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J_fu_824">flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J, ?, ?, ?, ?, ?, ?, no</column>
+<column name="grp_flash_attention_hls_Pipeline_FIND_MAX_fu_876">flash_attention_hls_Pipeline_FIND_MAX, ?, ?, ?, ?, ?, ?, no</column>
+<column name="grp_flash_attention_hls_Pipeline_VITIS_LOOP_160_4_fu_884">flash_attention_hls_Pipeline_VITIS_LOOP_160_4, 20, 20, 0.200 us, 0.200 us, 20, 20, no</column>
+<column name="grp_flash_attention_hls_Pipeline_UPDATE_ACC_fu_899">flash_attention_hls_Pipeline_UPDATE_ACC, 36, 36, 0.360 us, 0.360 us, 36, 36, no</column>
+<column name="grp_flash_attention_hls_Pipeline_STORE_O_VITIS_LOOP_188_5_fu_915">flash_attention_hls_Pipeline_STORE_O_VITIS_LOOP_188_5, ?, ?, ?, ?, ?, ?, no</column>
+</table>
+</item>
+<item name = "Loop"><table name="" hasTotal="0">
+<keys size="8">Loop Name, min, max, Latency, achieved, target, Count, Pipelined</keys>
+<column name="- Q_TILE_LOOP">?, ?, ?, -, -, 1 ~ 536870912, no</column>
+<column name=" + INIT_STATE">?, ?, ?, -, -, 1 ~ ?, no</column>
+<column name=" + K_TILE_LOOP">?, ?, ?, -, -, 1 ~ 536870912, no</column>
+<column name="  ++ UPDATE_LOOP_I">?, ?, ?, -, -, 1 ~ ?, no</column>
+<column name="   +++ EXP_ACCUM">?, ?, 42, -, -, ?, no</column>
+</table>
+</item>
+</section>
+</item>
+</section>
+</item>
+</section>
+</profile>

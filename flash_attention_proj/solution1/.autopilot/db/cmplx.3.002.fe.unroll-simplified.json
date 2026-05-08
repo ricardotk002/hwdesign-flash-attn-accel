@@ -1,0 +1,28 @@
+{
+  "0": {
+    "basicblocks": 129,
+    "calls": "1",
+    "file": "flash_attention.cpp",
+    "fileloc": 17,
+    "instructions": 701,
+    "loads": {
+      "L": 85,
+      "T": 3
+    },
+    "name": "flash_attention_hls",
+    "stores": {
+      "L": 49,
+      "T": 1
+    },
+    "total_instructions": 703
+  },
+  "1": {
+    "basicblocks": 1,
+    "calls": "",
+    "file": "sqrtfloat.cpp",
+    "fileloc": 11,
+    "instructions": 2,
+    "name": "sqrtf",
+    "total_instructions": 2
+  }
+}

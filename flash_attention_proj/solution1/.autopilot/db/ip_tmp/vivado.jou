@@ -1,0 +1,14 @@
+#-----------------------------------------------------------
+# Vivado v2023.2 (64-bit)
+# SW Build 4029153 on Fri Oct 13 20:13:54 MDT 2023
+# IP Build 4028589 on Sat Oct 14 00:45:43 MDT 2023
+# SharedData Build 4025554 on Tue Oct 10 17:18:54 MDT 2023
+# Start of session at: Fri May  8 14:39:48 2026
+# Process ID: 1118949
+# Current directory: /home/aa13231/Downloads/code/flash_attention_proj/solution1/.autopilot/db/ip_tmp
+# Command line: vivado  -notrace -log vivado.log -mode batch -source run_vivado_gen_ip.tcl
+# Log file: /home/aa13231/Downloads/code/flash_attention_proj/solution1/.autopilot/db/ip_tmp/vivado.log
+# Journal file: /home/aa13231/Downloads/code/flash_attention_proj/solution1/.autopilot/db/ip_tmp/vivado.jou
+# Running On: ecs02.poly.edu, OS: Linux, CPU Frequency: 2200.000 MHz, CPU Physical cores: 32, Host memory: 1064159 MB
+#-----------------------------------------------------------
+source run_vivado_gen_ip.tcl -notrace

@@ -1,0 +1,6 @@
+   Build using "/eda/xilinx/Vitis_HLS/2023.2/tps/lnx64/gcc-8.3.0/bin/g++"
+   Compiling apatb_flash_attention_hls.cpp
+   Compiling tb_flash_attention.cpp_pre.cpp.tb.cpp
+   Compiling flash_attention.cpp_pre.cpp.tb.cpp
+   Compiling apatb_flash_attention_hls_ir.ll
+   Generating cosim.tv.exe
