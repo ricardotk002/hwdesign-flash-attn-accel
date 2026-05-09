@@ -26,10 +26,13 @@ void flash_attention_hls(
 #pragma HLS INLINE off
 
 // ── AXI4 Master ports (burst read/write to DDR) ──────────────────────────────
-#pragma HLS INTERFACE m_axi port=Q depth=4096 bundle=gmem0 offset=slave
-#pragma HLS INTERFACE m_axi port=K depth=4096 bundle=gmem1 offset=slave
-#pragma HLS INTERFACE m_axi port=V depth=4096 bundle=gmem2 offset=slave
-#pragma HLS INTERFACE m_axi port=O depth=4096 bundle=gmem3 offset=slave
+// IMPORTANT: depth is in ELEMENTS (floats), not bytes, and MUST match the
+// host buffer size used by the testbench (N_MAX * D_MAX = 64 * 32 = 2048).
+// If depth > host buffer size, cosim's post-check segfaults.
+#pragma HLS INTERFACE m_axi port=Q depth=2048 bundle=gmem0 offset=slave
+#pragma HLS INTERFACE m_axi port=K depth=2048 bundle=gmem1 offset=slave
+#pragma HLS INTERFACE m_axi port=V depth=2048 bundle=gmem2 offset=slave
+#pragma HLS INTERFACE m_axi port=O depth=2048 bundle=gmem3 offset=slave
 
 // ── AXI4-Lite slave (control registers: N, d, causal, base addresses) ────────
 #pragma HLS INTERFACE s_axilite port=Q       bundle=ctrl
