@@ -87,6 +87,8 @@ To run only selected stages, comment out lines in `run_hls.tcl` (each stage is o
 
 ### Synthesis (target: xc7z020-clg400-1, 100 MHz)
 
+**BRAM_18K 141/280 (50%) · DSP48E1 178/220 (81%) · FF 31,527/106,400 (30%) · LUT 40,259/53,200 (76%).** All resources fit within the PYNQ-Z2 budget. Timing slack −1.40 ns at 100 MHz; functional at ≈ 87 MHz. All inner loops achieve II = 1.
+
 | Resource   | Used    | Available | Utilization | Goal  |
 |------------|---------|-----------|-------------|-------|
 | BRAM_18K   | 141     | 280       | 50%         | ≤ 70% |

@@ -292,6 +292,8 @@ Target: xc7z020-clg400-1 at 100 MHz (10 ns clock period).
 
 #### Resource Utilization
 
+Post-synthesis utilization on xc7z020: **BRAM_18K 141/280 (50%), DSP48E1 178/220 (81%), FF 31,527/106,400 (30%), LUT 40,259/53,200 (76%).** All fit within the PYNQ-Z2 budget; no URAM is used (not available on 7-series).
+
 | Resource | Used | Available | Utilization |
 |----------|------|-----------|-------------|
 | BRAM_18K | 141 | 280 | **50%** |
