@@ -1,0 +1,151 @@
+
+
+================================================================
+== Vitis HLS Report for 'flash_attention_hls_Pipeline_VITIS_LOOP_80_2'
+================================================================
+* Date:           Fri May  8 14:39:23 2026
+
+* Version:        2023.2 (Build 4023990 on Oct 11 2023)
+* Project:        flash_attention_proj
+* Solution:       solution1 (Vivado IP Flow Target)
+* Product family: zynq
+* Target device:  xc7z020-clg400-1
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+----------+----------+------------+
+    |  Clock |  Target  | Estimated| Uncertainty|
+    +--------+----------+----------+------------+
+    |ap_clk  |  10.00 ns|  7.394 ns|     2.70 ns|
+    +--------+----------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+----------+----------+-----+-----+---------+
+    |  Latency (cycles) |  Latency (absolute) |  Interval | Pipeline|
+    |   min   |   max   |    min   |    max   | min | max |   Type  |
+    +---------+---------+----------+----------+-----+-----+---------+
+    |        ?|        ?|         ?|         ?|    ?|    ?|       no|
+    +---------+---------+----------+----------+-----+-----+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +-------------------+---------+---------+----------+-----------+-----------+------+----------+
+        |                   |  Latency (cycles) | Iteration|  Initiation Interval  | Trip |          |
+        |     Loop Name     |   min   |   max   |  Latency |  achieved |   target  | Count| Pipelined|
+        +-------------------+---------+---------+----------+-----------+-----------+------+----------+
+        |- VITIS_LOOP_80_2  |        ?|        ?|         1|          1|          1|     ?|       yes|
+        +-------------------+---------+---------+----------+-----------+-----------+------+----------+
+
+
+
+================================================================
+== Utilization Estimates
+================================================================
+* Summary: 
++-----------------+---------+-----+--------+-------+-----+
+|       Name      | BRAM_18K| DSP |   FF   |  LUT  | URAM|
++-----------------+---------+-----+--------+-------+-----+
+|DSP              |        -|    -|       -|      -|    -|
+|Expression       |        -|    -|       0|     91|    -|
+|FIFO             |        -|    -|       -|      -|    -|
+|Instance         |        -|    -|       -|      -|    -|
+|Memory           |        -|    -|       -|      -|    -|
+|Multiplexer      |        -|    -|       -|     27|    -|
+|Register         |        -|    -|      33|      -|    -|
++-----------------+---------+-----+--------+-------+-----+
+|Total            |        0|    0|      33|    118|    0|
++-----------------+---------+-----+--------+-------+-----+
+|Available        |      280|  220|  106400|  53200|    0|
++-----------------+---------+-----+--------+-------+-----+
+|Utilization (%)  |        0|    0|      ~0|     ~0|    0|
++-----------------+---------+-----+--------+-------+-----+
+
++ Detail: 
+    * Instance: 
+    N/A
+
+    * DSP: 
+    N/A
+
+    * Memory: 
+    N/A
+
+    * FIFO: 
+    N/A
+
+    * Expression: 
+    +---------------------+----------+----+---+----+------------+------------+
+    |    Variable Name    | Operation| DSP| FF| LUT| Bitwidth P0| Bitwidth P1|
+    +---------------------+----------+----+---+----+------------+------------+
+    |add_ln80_fu_138_p2   |         +|   0|  0|  38|          31|           1|
+    |add_ln82_fu_158_p2   |         +|   0|  0|  14|           6|           6|
+    |icmp_ln80_fu_132_p2  |      icmp|   0|  0|  39|          32|          32|
+    +---------------------+----------+----+---+----+------------+------------+
+    |Total                |          |   0|  0|  91|          69|          39|
+    +---------------------+----------+----+---+----+------------+------------+
+
+    * Multiplexer: 
+    +----------------------+----+-----------+-----+-----------+
+    |         Name         | LUT| Input Size| Bits| Total Bits|
+    +----------------------+----+-----------+-----+-----------+
+    |ap_done_int           |   9|          2|    1|          2|
+    |ap_sig_allocacmp_x_1  |   9|          2|   31|         62|
+    |x_fu_48               |   9|          2|   31|         62|
+    +----------------------+----+-----------+-----+-----------+
+    |Total                 |  27|          6|   63|        126|
+    +----------------------+----+-----------+-----+-----------+
+
+    * Register: 
+    +-------------+----+----+-----+-----------+
+    |     Name    | FF | LUT| Bits| Const Bits|
+    +-------------+----+----+-----+-----------+
+    |ap_CS_fsm    |   1|   0|    1|          0|
+    |ap_done_reg  |   1|   0|    1|          0|
+    |x_fu_48      |  31|   0|   31|          0|
+    +-------------+----+----+-----+-----------+
+    |Total        |  33|   0|   33|          0|
+    +-------------+----+----+-----+-----------+
+
+
+
+================================================================
+== Interface
+================================================================
+* Summary: 
++----------------+-----+-----+------------+----------------------------------------------+--------------+
+|    RTL Ports   | Dir | Bits|  Protocol  |                 Source Object                |    C Type    |
++----------------+-----+-----+------------+----------------------------------------------+--------------+
+|ap_clk          |   in|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_VITIS_LOOP_80_2|  return value|
+|ap_rst          |   in|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_VITIS_LOOP_80_2|  return value|
+|ap_start        |   in|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_VITIS_LOOP_80_2|  return value|
+|ap_done         |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_VITIS_LOOP_80_2|  return value|
+|ap_idle         |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_VITIS_LOOP_80_2|  return value|
+|ap_ready        |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_VITIS_LOOP_80_2|  return value|
+|d               |   in|   32|     ap_none|                                             d|        scalar|
+|zext_ln82       |   in|    6|     ap_none|                                     zext_ln82|        scalar|
+|acc_address0    |  out|    6|   ap_memory|                                           acc|         array|
+|acc_ce0         |  out|    1|   ap_memory|                                           acc|         array|
+|acc_we0         |  out|    1|   ap_memory|                                           acc|         array|
+|acc_d0          |  out|   32|   ap_memory|                                           acc|         array|
+|acc_1_address0  |  out|    6|   ap_memory|                                         acc_1|         array|
+|acc_1_ce0       |  out|    1|   ap_memory|                                         acc_1|         array|
+|acc_1_we0       |  out|    1|   ap_memory|                                         acc_1|         array|
+|acc_1_d0        |  out|   32|   ap_memory|                                         acc_1|         array|
+|acc_2_address0  |  out|    6|   ap_memory|                                         acc_2|         array|
+|acc_2_ce0       |  out|    1|   ap_memory|                                         acc_2|         array|
+|acc_2_we0       |  out|    1|   ap_memory|                                         acc_2|         array|
+|acc_2_d0        |  out|   32|   ap_memory|                                         acc_2|         array|
+|acc_3_address0  |  out|    6|   ap_memory|                                         acc_3|         array|
+|acc_3_ce0       |  out|    1|   ap_memory|                                         acc_3|         array|
+|acc_3_we0       |  out|    1|   ap_memory|                                         acc_3|         array|
+|acc_3_d0        |  out|   32|   ap_memory|                                         acc_3|         array|
++----------------+-----+-----+------------+----------------------------------------------+--------------+
+

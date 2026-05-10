@@ -33,9 +33,10 @@ code/
     tv_attention_python.csv    # golden-model test vectors (input to testbench)
     tv_attention_csim.csv      # C-simulation results
     tv_attention_rtl.csv       # RTL co-simulation results
-  flash_attention_proj/solution1/syn/report/
+  doc/reports/
     flash_attention_hls_csynth.rpt   # full synthesis report
     csynth_design_size.rpt           # resource summary
+    flash_attention_hls_Pipeline_*   # per-pipeline loop reports
 doc/
   presentation.tex / .pdf      # slide deck
   diagram_standalone.tex       # standalone TikZ block diagram source
@@ -64,7 +65,7 @@ This runs all four stages in sequence. Expected outputs:
 | Stage | Output file |
 |-------|-------------|
 | C-simulation | `code/test_outputs/tv_attention_csim.csv` |
-| Synthesis report | `code/flash_attention_proj/solution1/syn/report/flash_attention_hls_csynth.rpt` |
+| Synthesis report | `doc/reports/flash_attention_hls_csynth.rpt` |
 | RTL co-simulation | `code/test_outputs/tv_attention_rtl.csv` |
 
 To run only selected stages, comment out lines in `run_hls.tcl` (each stage is one call: `csim_design`, `csynth_design`, `cosim_design`, `export_design`).
