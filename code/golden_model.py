@@ -130,12 +130,24 @@ if __name__ == "__main__":
     # Tests 3-4: N=16 cases — exercises the multi-tile Q and K loops
     #            (HLS BQ=BK=8, so 16/8 = 2 tiles in each dimension)
     test_configs = [
-        {"test_id": 0, "N":  4, "d": 4, "block_size": 2, "causal": 0, "seed": 11},
-        {"test_id": 1, "N":  4, "d": 4, "block_size": 2, "causal": 1, "seed": 22},
-        {"test_id": 2, "N":  8, "d": 4, "block_size": 4, "causal": 1, "seed": 33},
-        # Multi-tile tests — these actually exercise tiling in the HLS DUT
-        {"test_id": 3, "N": 16, "d": 8, "block_size": 8, "causal": 0, "seed": 44},
-        {"test_id": 4, "N": 16, "d": 8, "block_size": 8, "causal": 1, "seed": 55},
+        # Tests 0-2: small cases (N <= BQ=BK=8, single-tile path)
+        {"test_id": 0, "N":  4, "d":  4, "block_size": 2, "causal": 0, "seed": 11},
+        {"test_id": 1, "N":  4, "d":  4, "block_size": 2, "causal": 1, "seed": 22},
+        {"test_id": 2, "N":  8, "d":  4, "block_size": 4, "causal": 1, "seed": 33},
+        # Tests 3-4: multi-tile (N=16 → 2 Q-tiles × 2 K-tiles)
+        {"test_id": 3, "N": 16, "d":  8, "block_size": 8, "causal": 0, "seed": 44},
+        {"test_id": 4, "N": 16, "d":  8, "block_size": 8, "causal": 1, "seed": 55},
+        # Test 5: partial tile boundary — N=13 is not divisible by BQ/BK=8,
+        #         so the last tile has q_lim=5 and k_lim=5. Tests the
+        #         boundary logic in the HLS loops.
+        {"test_id": 5, "N": 13, "d":  8, "block_size": 8, "causal": 0, "seed": 66},
+        # Test 6: partial tile + causal
+        {"test_id": 6, "N": 13, "d":  8, "block_size": 8, "causal": 1, "seed": 77},
+        # Test 7: larger N and d, stress test with 4 Q-tiles × 4 K-tiles
+        {"test_id": 7, "N": 32, "d": 16, "block_size": 8, "causal": 0, "seed": 88},
+        # Test 8: maximum supported size (N=64, d=32) — exercises full unroll
+        #         of D_MAX=32 MACs and the maximum tile-loop iteration count
+        {"test_id": 8, "N": 64, "d": 32, "block_size": 8, "causal": 0, "seed": 99},
     ]
 
     results = []
