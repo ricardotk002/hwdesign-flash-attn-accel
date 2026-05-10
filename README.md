@@ -74,17 +74,21 @@ To run only selected stages, comment out lines in `run_hls.tcl` (each stage is o
 
 ### Functional verification
 
-5 test vectors covering single-tile (N=4, 8) and multi-tile (N=16, 2×2 tiles) paths, both non-causal and causal. Tolerance = 1×10⁻⁴.
+9 test vectors covering single-tile, multi-tile, partial-tile boundary (N not divisible by BQ=8), and maximum-size paths, both non-causal and causal. Tolerance = 1×10⁻⁴.
 
-| Test | N  | d | Causal | Max \|err\| vs float64 | C-sim | RTL co-sim |
-|------|----|---|--------|------------------------|-------|------------|
-| 0    | 4  | 4 | No     | 6.0×10⁻⁸               | PASS  | PASS       |
-| 1    | 4  | 4 | Yes    | 1.2×10⁻⁷               | PASS  | PASS       |
-| 2    | 8  | 4 | Yes    | 1.2×10⁻⁷               | PASS  | PASS       |
-| 3    | 16 | 8 | No     | 1.2×10⁻⁷               | PASS  | PASS       |
-| 4    | 16 | 8 | Yes    | 1.6×10⁻⁷               | PASS  | PASS       |
+| Test | N  | d  | Causal | Max \|err\| vs float64 | C-sim | RTL co-sim |
+|------|----|----|--------|------------------------|-------|------------|
+| 0    | 4  | 4  | No     | 6.0×10⁻⁸               | PASS  | PASS       |
+| 1    | 4  | 4  | Yes    | 1.2×10⁻⁷               | PASS  | PASS       |
+| 2    | 8  | 4  | Yes    | 1.2×10⁻⁷               | PASS  | PASS       |
+| 3    | 16 | 8  | No     | 2.1×10⁻⁷               | PASS  | PASS       |
+| 4    | 16 | 8  | Yes    | 1.2×10⁻⁷               | PASS  | PASS       |
+| 5    | 13 | 8  | No     | 3.6×10⁻⁷               | PASS  | PASS       |
+| 6    | 13 | 8  | Yes    | 2.4×10⁻⁷               | PASS  | PASS       |
+| 7    | 32 | 16 | No     | 1.8×10⁻⁷               | PASS  | PASS       |
+| 8    | 64 | 32 | No     | 3.0×10⁻⁷               | PASS  | PASS       |
 
-**5/5 pass.** Maximum error 1.6×10⁻⁷ — more than 600× below tolerance, consistent with expected float32 rounding.
+**9/9 pass.** Maximum error 3.6×10⁻⁷ — more than 270× below tolerance, consistent with expected float32 rounding. C-sim and RTL co-sim results are identical.
 
 ### Synthesis (target: xc7z020-clg400-1, 100 MHz)
 

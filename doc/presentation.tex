@@ -473,7 +473,7 @@ for (int j = 0; j < k_lim; j++) {
 \end{frame}
 
 % =============================================================================
-\begin{frame}{Functional Verification}
+\begin{frame}{Functional Verification --- Testbench}
 % =============================================================================
   \begin{columns}[T]
     \begin{column}{0.56\textwidth}
@@ -486,42 +486,60 @@ for (int j = 0; j < k_lim; j++) {
               C-sim \emph{and} RTL co-simulation identically
         \item Max absolute error reported per test
       \end{enumerate}
+    \end{column}
+    \begin{column}{0.40\textwidth}
+      \textbf{Coverage}
+      \hrulefull
+      \begin{itemize}\setlength\itemsep{3pt}
+        \item Single-tile ($N \le 8$)
+        \item Multi-tile ($N{=}16$, $N{=}32$)
+        \item \hl{Partial tile} ($N{=}13$,\\
+              q\_lim $=$ k\_lim $=$ 5)
+        \item Max size ($N{=}64$, $d{=}32$)
+        \item Full and causal masking
+        \item Verified in Vitis HLS\\(C-sim \& RTL co-sim)
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
 
-      \vspace{0.35cm}
-      \textbf{Results} \quad (tol $= 10^{-4}$)
-      \vspace{0.1cm}
+% =============================================================================
+\begin{frame}{Functional Verification --- Results}
+% =============================================================================
+  \vspace{0.1cm}
+  \begin{columns}[T]
+    \begin{column}{0.60\textwidth}
+      \textbf{Per-test results} \quad \muted{(Vitis HLS C-sim \& RTL co-sim, tolerance $= 10^{-4}$)}
+      \vspace{0.15cm}
 
       {\small
-      \begin{tabular}{cccll}
+      \begin{tabular}{ccclr}
         \toprule
-        ID & $N$ & $d$ & Causal & Max $|$err$|$ \\
+        ID & $N$ & $d$ & Causal & Max $|$err$|$ vs float64 \\
         \midrule
-        0 & 4  & 4 & No  & $6.0\times10^{-8}$\quad\good{\checkmark} \\
-        1 & 4  & 4 & Yes & $1.2\times10^{-7}$\quad\good{\checkmark} \\
-        2 & 8  & 4 & Yes & $1.2\times10^{-7}$\quad\good{\checkmark} \\
-        3 & 16 & 8 & No  & $1.2\times10^{-7}$\quad\good{\checkmark} \\
-        4 & 16 & 8 & Yes & $1.6\times10^{-7}$\quad\good{\checkmark} \\
+        0 & 4  & 4  & No  & $6.0\times10^{-8}$\quad\good{\checkmark} \\
+        1 & 4  & 4  & Yes & $1.2\times10^{-7}$\quad\good{\checkmark} \\
+        2 & 8  & 4  & Yes & $1.2\times10^{-7}$\quad\good{\checkmark} \\
+        3 & 16 & 8  & No  & $2.1\times10^{-7}$\quad\good{\checkmark} \\
+        4 & 16 & 8  & Yes & $1.2\times10^{-7}$\quad\good{\checkmark} \\
+        5 & 13 & 8  & No  & $3.6\times10^{-7}$\quad\good{\checkmark} \\
+        6 & 13 & 8  & Yes & $2.4\times10^{-7}$\quad\good{\checkmark} \\
+        7 & 32 & 16 & No  & $1.8\times10^{-7}$\quad\good{\checkmark} \\
+        8 & 64 & 32 & No  & $3.0\times10^{-7}$\quad\good{\checkmark} \\
         \bottomrule
       \end{tabular}
       }
     \end{column}
-    \begin{column}{0.40\textwidth}
-      \begin{block}{\good{5 / 5 PASS}}
-        Max error: $\mathbf{1.6\times10^{-7}}$\\
-        \muted{$600\times$ below tolerance.}
+    \begin{column}{0.36\textwidth}
+      \begin{block}{\good{9 / 9 PASS}}
+        \vspace{2pt}
+        Max error $\mathbf{3.6\times10^{-7}}$\\[3pt]
+        $270\times$ below $10^{-4}$ tol.\\[3pt]
+        C-sim and RTL co-sim\\results are identical.
+        \vspace{2pt}
       \end{block}
-
-      \vspace{0.4cm}
-      \textbf{Coverage}
-      \hrulefull
-      \begin{itemize}\setlength\itemsep{3pt}
-        \item Single-tile path ($N \le 8$)
-        \item \hl{Multi-tile path} ($N{=}16$:\\
-              2 Q-tiles $\times$ 2 K-tiles)
-        \item Full and causal masking
-        \item Non-multiple-of-tile $N$
-        \item C-sim = RTL co-sim output
-      \end{itemize}
+      \vspace{0.3cm}
+      \muted{\small Test 5 (N=13) is the worst case — partial tile boundary where the last Q and K tiles are only 5 rows wide.}
     \end{column}
   \end{columns}
 \end{frame}
@@ -594,16 +612,16 @@ for (int j = 0; j < k_lim; j++) {
           \item PYNQ-Z2 (XC7Z020) --- PS-ready IP block
           \item 4-channel AXI4 Master + AXI4-Lite control
           \item All inner loops: \good{II = 1}
-          \item \good{5/5 tests pass} in C-sim and RTL co-sim
-          \item Max error: $1.6\times10^{-7}$
-                ($600\times$ below tolerance)
+          \item \good{9/9 tests pass} in Vitis HLS (C-sim \& RTL co-sim)
+          \item Max error: $3.6\times10^{-7}$
+                ($270\times$ below tolerance)
           \item Optional causal masking at no latency cost
         \end{itemize}
         \vspace{2pt}
       \end{block}
     \end{column}
     \begin{column}{0.48\textwidth}
-      \begin{block}{\muted{Limitations}}
+      \begin{block}{Limitations}
         \vspace{2pt}
         \begin{itemize}\setlength\itemsep{2pt}
           \item Timing violation ($-1.40$ ns at 100 MHz)

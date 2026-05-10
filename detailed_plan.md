@@ -270,21 +270,27 @@ The testbench accepts a command-line argument `rtl` to distinguish C-simulation 
 Tests include:
 - **Small single-tile cases** (N=4, N=8): verify correct output when the entire sequence fits in one tile, both causal and non-causal
 - **Multi-tile cases** (N=16, d=8): exercise the full nested tile loop (2 Q tiles × 2 K tiles = 4 tile iterations), both causal and non-causal
+- **Partial-tile boundary** (N=13): N is not divisible by BQ=BK=8, so the last tile has q_lim=5 and k_lim=5 — directly exercises the boundary logic in the HLS loops
+- **Stress tests** (N=32 d=16, N=64 d=32): larger sequences with up to 8×8=64 tile iterations; N=64 d=32 tests the 32-MAC full unroll at D_MAX
 - **Causal masking**: verified that future positions produce zero contribution to softmax
 
 ### 3.3 Functional Verification Results
 
 C-simulation and RTL co-simulation results (tolerance = 1e-4):
 
-| Test | N | d | Block | Causal | err (python vs float64) | err (DUT vs float64) | Result |
-|------|---|---|-------|--------|--------------------------|----------------------|--------|
-| 0 | 4 | 4 | 2 | No | 2.6e-8 | 6.0e-8 | **PASS** |
-| 1 | 4 | 4 | 2 | Yes | 4.5e-8 | 1.19e-7 | **PASS** |
-| 2 | 8 | 4 | 4 | Yes | 5.5e-8 | 1.19e-7 | **PASS** |
-| 3 | 16 | 8 | 8 | No | 1.23e-7 | 1.19e-7 | **PASS** |
-| 4 | 16 | 8 | 8 | Yes | 9.8e-8 | 1.56e-7 | **PASS** |
+| Test | N  | d  | Block | Causal | err (python vs float64) | err (DUT vs float64) | Result |
+|------|----|----|-------|--------|--------------------------|----------------------|--------|
+| 0    | 4  | 4  | 2     | No     | 2.6e-8  | 6.0e-8  | **PASS** |
+| 1    | 4  | 4  | 2     | Yes    | 4.5e-8  | 1.19e-7 | **PASS** |
+| 2    | 8  | 4  | 4     | Yes    | 5.5e-8  | 1.19e-7 | **PASS** |
+| 3    | 16 | 8  | 8     | No     | 2.9e-8  | 2.09e-7 | **PASS** |
+| 4    | 16 | 8  | 8     | Yes    | 5.6e-8  | 1.19e-7 | **PASS** |
+| 5    | 13 | 8  | 8     | No     | 3.2e-8  | 3.58e-7 | **PASS** |
+| 6    | 13 | 8  | 8     | Yes    | 6.9e-8  | 2.38e-7 | **PASS** |
+| 7    | 32 | 16 | 8     | No     | 2.9e-8  | 1.79e-7 | **PASS** |
+| 8    | 64 | 32 | 8     | No     | 2.9e-8  | 2.98e-7 | **PASS** |
 
-All five test vectors pass in both C-simulation and RTL co-simulation. Maximum observed DUT error is **1.56e-7**, more than 600× below the 1e-4 tolerance — consistent with the expected float32 rounding error for this computation.
+All nine test vectors pass in both C-simulation and RTL co-simulation with identical results. Maximum observed DUT error is **3.58e-7** (test 5, partial-tile boundary), more than 270× below the 1e-4 tolerance — consistent with the expected float32 rounding error for this computation.
 
 ### 3.4 Synthesis Results
 
