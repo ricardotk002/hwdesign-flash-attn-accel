@@ -15,6 +15,12 @@ Q, K, V, O ∈ ℝ^(N×d), with optional causal masking. Inputs are read from DD
 
 Compile-time limits: N ≤ 64, d ≤ 32, tile sizes BQ = BK = 8.
 
+## Architecture
+
+![IP block diagram](doc/architecture.png)
+
+Seven sub-modules process Q/K/V tiles through a sequential pipeline: the Loader (blue) fetches tiles from DDR into on-chip BRAM buffers; the Dot-Product Engine (green) computes scaled scores; the Online Softmax Unit tracks running max and normalization; the Weighted Value Accumulator maintains a normalized running output; and the Writeback module sends the result back to DDR. The PS configures all parameters over AXI4-Lite; a top-level FSM coordinates the tile loops.
+
 ## Repository layout
 
 ```
@@ -30,12 +36,10 @@ code/
   flash_attention_proj/solution1/syn/report/
     flash_attention_hls_csynth.rpt   # full synthesis report
     csynth_design_size.rpt           # resource summary
-examples/
-  ip_block_diagram.tex         # TikZ block diagram (Overleaf)
+doc/
   presentation.tex / .pdf      # slide deck
-  attention_basics.md          # step-by-step standard attention walkthrough
-  flash_attention_walkthrough.md
-  cycle_by_cycle.md            # HLS phase-by-phase state trace
+  diagram_standalone.tex       # standalone TikZ block diagram source
+  architecture.png             # block diagram exported for README
 detailed_plan.md               # full design document (IP spec, arch, evaluation)
 ```
 
