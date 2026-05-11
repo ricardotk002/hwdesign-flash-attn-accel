@@ -231,6 +231,199 @@
 \end{frame}
 
 % =============================================================================
+\begin{frame}{Standard Attention --- Numerical Example ($N{=}3$, $d{=}2$)}
+% =============================================================================
+\begin{columns}[T]
+  \begin{column}{0.50\textwidth}
+    \vspace{0.05cm}
+    {\small $Q = K = V = \begin{bmatrix}1&0\\0&1\\1&1\end{bmatrix}$,\quad
+    $s_{ij} = \dfrac{q_i \cdot k_j}{\sqrt{2}}$}
+
+    \vspace{0.25cm}
+    \textbf{Full $3{\times}3$ score matrix} \warn{(all 9 values in memory)}
+
+    \vspace{0.1cm}
+    {\small
+    \begin{tabular}{r|ccc}
+         & $k_1$ & $k_2$ & $k_3$ \\\hline
+    $q_1$& 0.71 & 0.00 & 0.71 \\
+    $q_2$& 0.00 & 0.71 & 0.71 \\
+    $q_3$& 0.71 & 0.71 & 1.41 \\
+    \end{tabular}
+    }
+
+    \vspace{0.25cm}
+    \textbf{Softmax row $q_1$:}\\[3pt]
+    {\small
+    $e^{[0.71,\;0.00,\;0.71]-0.71} = [1.00,\;0.49,\;1.00]$\\[2pt]
+    $\ell = 2.49 \;\Rightarrow\; p_1 = [0.40,\;0.20,\;0.40]$\\[4pt]
+    $o_1 = p_1 \cdot V = \good{[0.80,\;0.60]}$
+    }
+  \end{column}
+  \begin{column}{0.46\textwidth}
+    \vspace{0.1cm}
+    \textbf{All $N^2{=}9$ scores in memory at once}
+    \vspace{0.15cm}
+
+    \centering
+    \begin{tikzpicture}[scale=0.90]
+      % ── background: all cells in memory ─────────────────────────────────────
+      \foreach \i in {0,...,2} { \foreach \j in {0,...,2} {
+        \fill[Blue!18] (\j*0.95, -\i*0.85) rectangle ++(0.95,0.85);
+      }}
+      % ── highlight q1 row (current row being processed) ───────────────────────
+      \foreach \j in {0,...,2} {
+        \fill[Blue!50] (\j*0.95, 0) rectangle ++(0.95,0.85);
+      }
+      % ── cell grid ────────────────────────────────────────────────────────────
+      \foreach \i in {0,...,2} { \foreach \j in {0,...,2} {
+        \draw[Navy!30, line width=0.5pt] (\j*0.95, -\i*0.85) rectangle ++(0.95,0.85);
+      }}
+      % ── thick border around q1 row ───────────────────────────────────────────
+      \draw[Blue!90, line width=2.0pt] (0, 0) rectangle ++(2.85, 0.85);
+      % ── score values in all cells ────────────────────────────────────────────
+      \foreach \j/\v in {0/0.71, 1/0.00, 2/0.71} {
+        \node[font=\small\sffamily\bfseries, text=Navy]
+          at (\j*0.95+0.475, 0.42) {\v};
+      }
+      \foreach \j/\v in {0/0.00, 1/0.71, 2/0.71} {
+        \node[font=\small\sffamily, text=Navy!70]
+          at (\j*0.95+0.475, -0.43) {\v};
+      }
+      \foreach \j/\v in {0/0.71, 1/0.71, 2/1.41} {
+        \node[font=\small\sffamily, text=Navy!70]
+          at (\j*0.95+0.475, -1.28) {\v};
+      }
+      % ── row label above highlighted row ──────────────────────────────────────
+      \node[font=\tiny\sffamily\bfseries, text=Blue!90]
+        at (3.35, 0.42) {← processing};
+      % ── axis labels ───────────────────────────────────────────────────────────
+      \foreach \j/\lab in {0/$k_1$, 1/$k_2$, 2/$k_3$} {
+        \node[font=\scriptsize\sffamily, text=SlateGry]
+          at (\j*0.95+0.475, 1.12) {\lab};
+      }
+      \foreach \i/\lab in {0/$q_1$, 1/$q_2$, 2/$q_3$} {
+        \node[font=\scriptsize\sffamily, text=SlateGry]
+          at (-0.44, -\i*0.85+0.42) {\lab};
+      }
+      % ── legend ───────────────────────────────────────────────────────────────
+      \fill[Blue!50] (0,-2.05) rectangle ++(0.32,0.32);
+      \draw[Blue!90, line width=1.5pt] (0,-2.05) rectangle ++(0.32,0.32);
+      \node[font=\tiny\sffamily, right, text=Navy] at (0.38,-1.89) {current row ($q_1$)};
+      \fill[Blue!18] (0,-2.50) rectangle ++(0.32,0.32);
+      \draw[Navy!30, line width=0.5pt] (0,-2.50) rectangle ++(0.32,0.32);
+      \node[font=\tiny\sffamily, right, text=Navy] at (0.38,-2.34) {other rows — also loaded};
+    \end{tikzpicture}
+
+    \vspace{0.15cm}
+    \raggedright
+    \warn{Softmax needs all 9 scores before\\it can compute a single probability.}
+  \end{column}
+\end{columns}
+\end{frame}
+
+% =============================================================================
+\begin{frame}{FlashAttention --- Same Example, $B_Q{=}B_K{=}2$}
+% =============================================================================
+\begin{columns}[T]
+  \begin{column}{0.52\textwidth}
+    \vspace{0.05cm}
+    {\small Focus on row $q_1{=}[1,0]$. Init: $m{=}{-\infty}$, $\ell{=}0$, $o{=}[0,0]$.}
+
+    \vspace{0.2cm}
+    \textbf{K/V tile 0} \muted{($k_1,k_2$ on-chip)}
+    {\small
+    \begin{itemize}\setlength\itemsep{1pt}
+      \item Scores: $[0.71,\;0.00]$
+      \item $m \leftarrow 0.71$,\quad $e^{s-m}{=}[1.00,\;0.49]$
+      \item $\ell \leftarrow 1.49$
+      \item $o \leftarrow \tfrac{1.00\cdot[1,0]+0.49\cdot[0,1]}{1.49} = [0.67,\;0.33]$
+    \end{itemize}
+    }
+
+    \vspace{0.15cm}
+    \textbf{K/V tile 1} \muted{($k_3$ on-chip)}
+    {\small
+    \begin{itemize}\setlength\itemsep{1pt}
+      \item Score: $[0.71]$\quad ($m$ unchanged $\Rightarrow$ correction $c{=}1$)
+      \item $\ell \leftarrow 1\cdot1.49 + 1.00 = 2.49$
+      \item $o \leftarrow \tfrac{1\cdot1.49\cdot[0.67,0.33]+1.00\cdot[1,1]}{2.49}$\\[2pt]
+            $\phantom{o \leftarrow} = \good{[0.80,\;0.60]}$ \quad\good{\checkmark same answer}
+    \end{itemize}
+    }
+
+    \vspace{0.1cm}
+    \good{Max on-chip at once: $1{\times}2 = 2$ scores.}\\
+    \good{Full $3{\times}3$ matrix never materializes.}
+  \end{column}
+  \begin{column}{0.44\textwidth}
+    \vspace{0.1cm}
+    \textbf{$3{\times}3$ score space — Q tile 0 ($q_1, q_2$)}
+    \vspace{0.15cm}
+
+    \centering
+    \begin{tikzpicture}[scale=0.90]
+      % ── background cells ────────────────────────────────────────────────────
+      \foreach \i in {0,...,2} {
+        \foreach \j in {0,...,2} {
+          \fill[Navy!7] (\j*0.95, -\i*0.85) rectangle ++(0.95,0.85);
+        }
+      }
+      % ── tile fills (draw before borders) ────────────────────────────────────
+      % Pass 1 (green): top-left 2×2
+      \foreach \i in {0,1} { \foreach \j in {0,1} {
+        \fill[GoodGrn!35] (\j*0.95, -\i*0.85) rectangle ++(0.95,0.85);
+      }}
+      % Pass 2 (blue): top-right 2×1
+      \foreach \i in {0,1} {
+        \fill[Blue!22] (1.90, -\i*0.85) rectangle ++(0.95,0.85);
+      }
+      % ── cell grid ────────────────────────────────────────────────────────────
+      \foreach \i in {0,...,2} { \foreach \j in {0,...,2} {
+        \draw[Navy!30, line width=0.5pt] (\j*0.95, -\i*0.85) rectangle ++(0.95,0.85);
+      }}
+      % ── thick tile borders ────────────────────────────────────────────────────
+      % Pass 1 border
+      \draw[GoodGrn!90, line width=2.0pt] (0, 0.85) rectangle ++(1.90,-1.70);
+      % Pass 2 border
+      \draw[Blue!80, line width=2.0pt] (1.90, 0.85) rectangle ++(0.95,-1.70);
+      % Q tile 1 border (next Q tile, not computed yet)
+      \draw[Navy!35, line width=1.0pt, dashed] (0,-0.85) rectangle ++(2.85,-0.85);
+
+      % ── pass labels above tiles ───────────────────────────────────────────────
+      \node[font=\tiny\sffamily\bfseries, text=GoodGrn!90]
+        at (0.95, 1.10) {Pass 1};
+      \node[font=\tiny\sffamily\bfseries, text=Blue!80]
+        at (2.375, 1.10) {Pass 2};
+      \node[font=\tiny\sffamily, text=Navy!45]
+        at (1.425, -1.55) {next Q tile};
+
+      % ── score values for q1 row ───────────────────────────────────────────────
+      \foreach \j/\v in {0/0.71, 1/0.00, 2/0.71} {
+        \node[font=\small\sffamily\bfseries, text=Navy]
+          at (\j*0.95+0.475, 0.42) {\v};
+      }
+
+      % ── axis labels ───────────────────────────────────────────────────────────
+      \foreach \j/\lab in {0/$k_1$, 1/$k_2$, 2/$k_3$} {
+        \node[font=\scriptsize\sffamily, text=SlateGry]
+          at (\j*0.95+0.475, 1.42) {\lab};
+      }
+      \foreach \i/\lab in {0/$q_1$, 1/$q_2$, 2/$q_3$} {
+        \node[font=\scriptsize\sffamily, text=SlateGry]
+          at (-0.44, -\i*0.85+0.42) {\lab};
+      }
+    \end{tikzpicture}
+
+    \vspace{0.15cm}
+    \raggedright
+    {\small Numbers shown are $q_1$'s scores per tile.\\
+    Each pass loads only one K/V tile at a time.}
+  \end{column}
+\end{columns}
+\end{frame}
+
+% =============================================================================
 \begin{frame}{Online Softmax: Exact Attention Without the Full Matrix}
 % =============================================================================
   \begin{columns}[T]
