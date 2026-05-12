@@ -133,9 +133,11 @@ void flash_attention_hls(
                 // Online Softmax Unit: find tile row max
                 data_t tile_max = NEG_INF;
                 FIND_MAX:
-                for (int j = 0; j < k_lim; j++) {
-#pragma HLS PIPELINE II=1
-                    if (scores[i][j] > tile_max) tile_max = scores[i][j];
+                for (int j = 0; j < BK; j++) {
+#pragma HLS UNROLL
+                    // if (scores[i][j] > tile_max) tile_max = scores[i][j];
+		    if (j < k_lim && scores[i][j] > tile_max)
+			    tile_max = scores[i][j];
                 }
 
                 data_t m_new     = (m[i] > tile_max) ? m[i] : tile_max;
