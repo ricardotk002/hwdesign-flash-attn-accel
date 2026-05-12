@@ -92,14 +92,14 @@ To run only selected stages, comment out lines in `run_hls.tcl` (each stage is o
 
 ### Synthesis (target: xc7z020-clg400-1, 100 MHz)
 
-**BRAM_18K 141/280 (50%) · DSP48E1 178/220 (81%) · FF 31,527/106,400 (30%) · LUT 40,259/53,200 (76%).** All resources fit within the PYNQ-Z2 budget. Timing slack −1.40 ns at 100 MHz; functional at ≈ 87 MHz. All inner loops achieve II = 1.
+**BRAM_18K 141/280 (50%) · DSP48E1 178/220 (80%) · FF 31,668/106,400 (29%) · LUT 41,490/53,200 (77%).** All resources fit within the PYNQ-Z2 budget. Timing estimated 7.396 ns — meets 100 MHz target. All inner loops achieve II = 1.
 
 | Resource   | Used    | Available | Utilization | Goal  |
 |------------|---------|-----------|-------------|-------|
 | BRAM_18K   | 141     | 280       | 50%         | ≤ 70% |
-| DSP48E1    | 178     | 220       | 81%         | ≤ 90% |
-| Flip-Flops | 31,527  | 106,400   | 30%         | —     |
-| LUTs       | 40,259  | 53,200    | 76%         | ≤ 85% |
+| DSP48E1    | 178     | 220       | 80%         | ≤ 90% |
+| Flip-Flops | 31,668  | 106,400   | 29%         | —     |
+| LUTs       | 41,490  | 53,200    | 77%         | ≤ 85% |
 
 **Clock / timing:** Target 10 ns (100 MHz). Timing slack −1.40 ns — design meets timing at ≈ 87 MHz. Critical path is the FIND_MAX comparator chain; a registered reduction tree would close timing at 100 MHz.
 

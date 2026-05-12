@@ -748,9 +748,9 @@ for (int j = 0; j < k_lim; j++) {
           Resource    & Used    & Avail    & \%  \\
           \midrule
           BRAM\_18K   & 141     & 280      & 50\% \\
-          DSP48E1     & 178     & 220      & \warn{81\%} \\
-          Flip-Flops  & 31\,527 & 106\,400 & 30\% \\
-          LUTs        & 40\,259 &  53\,200 & \warn{76\%} \\
+          DSP48E1     & 178     & 220      & \warn{80\%} \\
+          Flip-Flops  & 31\,668 & 106\,400 & 29\% \\
+          LUTs        & 41\,490 &  53\,200 & \warn{77\%} \\
           \bottomrule
         \end{tabular}
         \vspace{2pt}
@@ -769,10 +769,10 @@ for (int j = 0; j < k_lim; j++) {
           \toprule
           Metric        & Value \\
           \midrule
-          Target clock  & 10 ns (100 MHz) \\
-          Timing slack  & \warn{$-1.40$ ns} \\
-          Critical path & FIND\_MAX chain  \\
-          Est.\ max freq & $\approx 87$ MHz \\
+          Target clock   & 10 ns (100 MHz) \\
+          Est.\ path     & \good{7.396 ns}  \\
+          Critical path  & FIND\_MAX tree   \\
+          Timing         & \good{meets 100 MHz} \\
           \bottomrule
         \end{tabular}
         \vspace{2pt}
@@ -816,7 +816,6 @@ for (int j = 0; j < k_lim; j++) {
       \begin{block}{Next steps}
         \vspace{2pt}
         \begin{itemize}\setlength\itemsep{2pt}
-          \item Registered FIND\_MAX tree $\to$ fix timing
           \item \texttt{\#pragma HLS DATAFLOW} $\to$\\
                 overlap load / compute / store
           \item \texttt{ap\_fixed<16,6>} $\to$ cut DSPs,\\

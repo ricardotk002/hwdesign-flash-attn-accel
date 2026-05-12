@@ -298,17 +298,17 @@ Target: xc7z020-clg400-1 at 100 MHz (10 ns clock period).
 
 #### Resource Utilization
 
-Post-synthesis utilization on xc7z020: **BRAM_18K 141/280 (50%), DSP48E1 178/220 (81%), FF 31,527/106,400 (30%), LUT 40,259/53,200 (76%).** All fit within the PYNQ-Z2 budget; no URAM is used (not available on 7-series).
+Post-synthesis utilization on xc7z020: **BRAM_18K 141/280 (50%), DSP48E1 178/220 (80%), FF 31,668/106,400 (29%), LUT 41,490/53,200 (77%).** All fit within the PYNQ-Z2 budget; no URAM is used (not available on 7-series).
 
 | Resource | Used | Available | Utilization |
 |----------|------|-----------|-------------|
 | BRAM_18K | 141 | 280 | **50%** |
-| DSP48E1 | 178 | 220 | **81%** |
-| Flip-Flops | 31,527 | 106,400 | 30% |
-| LUTs | 40,259 | 53,200 | 76% |
+| DSP48E1 | 178 | 220 | **80%** |
+| Flip-Flops | 31,668 | 106,400 | 29% |
+| LUTs | 41,490 | 53,200 | 77% |
 | URAM | 0 | 0 | — |
 
-DSPs and LUTs are the binding constraints. DSP utilization is high (81%) due to the fully unrolled dot-product engine: 32 parallel `fmul + fadd` chains over D_MAX generate approximately 32 × 3 = 96 DSPs for the multipliers plus the floating-point adder tree.
+DSPs and LUTs are the binding constraints. DSP utilization is 80% due to the fully unrolled dot-product engine: 32 parallel `fmul + fadd` chains over D_MAX generate approximately 32 × 3 = 96 DSPs for the multipliers plus the floating-point adder tree.
 
 #### Pipeline Loop Latency
 
@@ -325,7 +325,7 @@ DSPs and LUTs are the binding constraints. DSP utilization is high (81%) due to 
 
 #### Timing
 
-The design has a **-1.40 ns timing violation** at 100 MHz. The critical path runs through the FIND_MAX comparator chain. In practice, the design can be run at ≈ 87 MHz (11.4 ns period) to meet timing, or the FIND_MAX loop can be restructured with an explicit registered reduction tree.
+The design meets timing at 100 MHz with an estimated critical path of **7.396 ns**. The FIND_MAX loop was restructured as a fully-unrolled reduction tree, eliminating the previous −1.40 ns timing violation.
 
 ---
 
