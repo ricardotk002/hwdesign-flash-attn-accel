@@ -4,7 +4,7 @@
 == Synthesis Summary Report of 'flash_attention_hls'
 ================================================================
 + General Information: 
-    * Date:           Sun May 10 18:11:13 2026
+    * Date:           Tue May 12 12:33:25 2026
     * Version:        2023.2 (Build 4023990 on Oct 11 2023)
     * Project:        flash_attention_proj
     * Solution:       solution1 (Vivado IP Flow Target)
@@ -19,12 +19,12 @@
     |                           Modules                           |  Issue |       | Latency | Latency | Iteration|         | Trip |          |           |           |             |             |     |
     |                           & Loops                           |  Type  | Slack | (cycles)|   (ns)  |  Latency | Interval| Count| Pipelined|   BRAM    |    DSP    |      FF     |     LUT     | URAM|
     +-------------------------------------------------------------+--------+-------+---------+---------+----------+---------+------+----------+-----------+-----------+-------------+-------------+-----+
-    |+ flash_attention_hls                                        |  Timing|  -1.40|        -|        -|         -|        -|     -|        no|  141 (50%)|  178 (80%)|  31527 (29%)|  40259 (75%)|    -|
+    |+ flash_attention_hls                                        |  Timing|  -0.10|        -|        -|         -|        -|     -|        no|  141 (50%)|  178 (80%)|  31668 (29%)|  41490 (77%)|    -|
     | o Q_TILE_LOOP                                               |       -|   7.30|        -|        -|         -|        -|     -|        no|          -|          -|            -|            -|    -|
     |  + flash_attention_hls_Pipeline_LOAD_Q_VITIS_LOOP_69_1      |  Timing|  -0.10|        -|        -|         -|        -|     -|        no|          -|          -|    506 (~0%)|     628 (1%)|    -|
     |   o LOAD_Q_VITIS_LOOP_69_1                                  |       -|   7.30|        -|        -|        12|        1|     -|       yes|          -|          -|            -|            -|    -|
-    |  + flash_attention_hls_Pipeline_STORE_O_VITIS_LOOP_188_5    |  Timing|  -0.10|        -|        -|         -|        -|     -|        no|          -|          -|    356 (~0%)|     586 (1%)|    -|
-    |   o STORE_O_VITIS_LOOP_188_5                                |       -|   7.30|        -|        -|         9|        1|     -|       yes|          -|          -|            -|            -|    -|
+    |  + flash_attention_hls_Pipeline_STORE_O_VITIS_LOOP_190_5    |  Timing|  -0.10|        -|        -|         -|        -|     -|        no|          -|          -|    356 (~0%)|     586 (1%)|    -|
+    |   o STORE_O_VITIS_LOOP_190_5                                |       -|   7.30|        -|        -|         9|        1|     -|       yes|          -|          -|            -|            -|    -|
     |  o INIT_STATE                                               |       -|   7.30|        -|        -|         -|        -|     -|        no|          -|          -|            -|            -|    -|
     |   + flash_attention_hls_Pipeline_VITIS_LOOP_80_2            |  Timing|  -0.09|        -|        -|         -|        -|     -|        no|          -|          -|     33 (~0%)|    118 (~0%)|    -|
     |    o VITIS_LOOP_80_2                                        |       -|   7.30|        -|        -|         1|        1|     -|       yes|          -|          -|            -|            -|    -|
@@ -34,13 +34,11 @@
     |   + flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J  |       -|   0.04|        -|        -|         -|        -|     -|        no|          -|  141 (64%)|  19394 (18%)|  23433 (44%)|    -|
     |    o SCORE_LOOP_I_SCORE_LOOP_J                              |       -|   7.30|        -|        -|       202|        1|     -|       yes|          -|          -|            -|            -|    -|
     |   o UPDATE_LOOP_I                                           |       -|   7.30|        -|        -|         -|        -|     -|        no|          -|          -|            -|            -|    -|
-    |    + flash_attention_hls_Pipeline_FIND_MAX                  |  Timing|  -1.40|        -|        -|         -|        -|     -|        no|          -|          -|    137 (~0%)|    277 (~0%)|    -|
-    |     o FIND_MAX                                              |       -|   7.30|        -|        -|         3|        1|     -|       yes|          -|          -|            -|            -|    -|
     |    + flash_attention_hls_Pipeline_UPDATE_ACC                |       -|   0.04|       36|  360.000|         -|       36|     -|        no|          -|          -|    1308 (1%)|    511 (~0%)|    -|
     |     o UPDATE_ACC                                            |       -|   7.30|       34|  340.000|        28|        1|     8|       yes|          -|          -|            -|            -|    -|
     |    o EXP_ACCUM                                              |       -|   7.30|        -|        -|        42|        -|     -|        no|          -|          -|            -|            -|    -|
-    |     + flash_attention_hls_Pipeline_VITIS_LOOP_160_4         |       -|   0.04|       20|  200.000|         -|       20|     -|        no|          -|          -|    1136 (1%)|    511 (~0%)|    -|
-    |      o VITIS_LOOP_160_4                                     |       -|   7.30|       18|  180.000|        12|        1|     8|       yes|          -|          -|            -|            -|    -|
+    |     + flash_attention_hls_Pipeline_VITIS_LOOP_162_4         |       -|   0.04|       20|  200.000|         -|       20|     -|        no|          -|          -|    1136 (1%)|    511 (~0%)|    -|
+    |      o VITIS_LOOP_162_4                                     |       -|   7.30|       18|  180.000|        12|        1|     8|       yes|          -|          -|            -|            -|    -|
     +-------------------------------------------------------------+--------+-------+---------+---------+----------+---------+------+----------+-----------+-----------+-------------+-------------+-----+
 
 
@@ -147,7 +145,7 @@
 | m_axi_gmem0  | read      | variable | 32    | VITIS_LOOP_69_1  | flash_attention.cpp:69:30  |
 | m_axi_gmem1  | read      | variable | 32    | VITIS_LOOP_93_3  | flash_attention.cpp:93:34  |
 | m_axi_gmem2  | read      | variable | 32    | VITIS_LOOP_93_3  | flash_attention.cpp:93:34  |
-| m_axi_gmem3  | write     | variable | 32    | VITIS_LOOP_188_5 | flash_attention.cpp:188:31 |
+| m_axi_gmem3  | write     | variable | 32    | VITIS_LOOP_190_5 | flash_attention.cpp:190:31 |
 +--------------+-----------+----------+-------+------------------+----------------------------+
 
 * All M_AXI Variable Accesses
@@ -163,9 +161,9 @@
 | m_axi_gmem2  | V        | flash_attention.cpp:96:34  | read      | Widen Fail   |          | VITIS_LOOP_93_3  | flash_attention.cpp:93:34  | 214-353    | Could not widen since type float size is greater than or equal to the max_widen_bitwidth threshold of 0 |
 | m_axi_gmem2  | V        | flash_attention.cpp:96:34  | read      | Fail         |          | LOAD_KV          | flash_attention.cpp:92:13  | 214-230    | Stride is incompatible                                                                                  |
 | m_axi_gmem2  | V        | flash_attention.cpp:96:34  | read      | Inferred     | variable | VITIS_LOOP_93_3  | flash_attention.cpp:93:34  |            |                                                                                                         |
-| m_axi_gmem3  | O        | flash_attention.cpp:190:23 | write     | Widen Fail   |          | VITIS_LOOP_188_5 | flash_attention.cpp:188:31 | 214-353    | Could not widen since type float size is greater than or equal to the max_widen_bitwidth threshold of 0 |
-| m_axi_gmem3  | O        | flash_attention.cpp:190:23 | write     | Fail         |          | STORE_O          | flash_attention.cpp:187:9  | 214-230    | Stride is incompatible                                                                                  |
-| m_axi_gmem3  | O        | flash_attention.cpp:190:23 | write     | Inferred     | variable | VITIS_LOOP_188_5 | flash_attention.cpp:188:31 |            |                                                                                                         |
+| m_axi_gmem3  | O        | flash_attention.cpp:192:23 | write     | Widen Fail   |          | VITIS_LOOP_190_5 | flash_attention.cpp:190:31 | 214-353    | Could not widen since type float size is greater than or equal to the max_widen_bitwidth threshold of 0 |
+| m_axi_gmem3  | O        | flash_attention.cpp:192:23 | write     | Fail         |          | STORE_O          | flash_attention.cpp:189:9  | 214-230    | Stride is incompatible                                                                                  |
+| m_axi_gmem3  | O        | flash_attention.cpp:192:23 | write     | Inferred     | variable | VITIS_LOOP_190_5 | flash_attention.cpp:190:31 |            |                                                                                                         |
 +--------------+----------+----------------------------+-----------+--------------+----------+------------------+----------------------------+------------+---------------------------------------------------------------------------------------------------------+
 
     * Resolution URL: docs.xilinx.com/access/sources/dita/topic?Doc_Version=2023.2%20English&url=ug1448-hls-guidance&resourceid=XXX-YYY.html (replace XXX-YYY with column value)
@@ -177,31 +175,31 @@
 | Name                                                      | DSP | Pragma | Variable    | Op    | Impl    | Latency |
 +-----------------------------------------------------------+-----+--------+-------------+-------+---------+---------+
 | + flash_attention_hls                                     | 178 |        |             |       |         |         |
-|   fsqrt_32ns_32ns_32_16_no_dsp_1_U213                     |     |        | tmp         | fsqrt | fabric  | 15      |
-|   fadd_32ns_32ns_32_5_full_dsp_1_U219                     |     |        | inv_sqrt_d  | fdiv  | fabric  | 15      |
-|   add_ln63_fu_1225_p2                                     |     |        | add_ln63    | add   | fabric  | 0       |
-|   add_ln63_1_fu_1245_p2                                   |     |        | add_ln63_1  | add   | fabric  | 0       |
-|   add_ln63_2_fu_1282_p2                                   |     |        | add_ln63_2  | add   | fabric  | 0       |
-|   add_ln64_fu_1292_p2                                     |     |        | add_ln64    | add   | fabric  | 0       |
-|   sub_ln64_fu_1311_p2                                     |     |        | sub_ln64    | sub   | fabric  | 0       |
-|   mul_32ns_32ns_63_2_1_U215                               | 4   |        | mul_ln68    | mul   | auto    | 1       |
-|   add_ln77_fu_1353_p2                                     |     |        | add_ln77    | add   | fabric  | 0       |
-|   add_ln87_fu_1384_p2                                     |     |        | add_ln87    | add   | fabric  | 0       |
-|   add_ln88_fu_1390_p2                                     |     |        | add_ln88    | add   | fabric  | 0       |
-|   sub_ln88_fu_1409_p2                                     |     |        | sub_ln88    | sub   | fabric  | 0       |
-|   mul_32ns_32ns_64_2_1_U216                               | 4   |        | mul_ln87    | mul   | auto    | 1       |
-|   mul_32ns_32ns_63_2_1_U215                               | 4   |        | mul_ln104   | mul   | auto    | 1       |
-|   add_ln132_fu_1463_p2                                    |     |        | add_ln132   | add   | fabric  | 0       |
-|   faddfsub_32ns_32ns_32_5_full_dsp_1_U208                 | 2   |        | x_assign_1  | fsub  | fulldsp | 4       |
-|   fexp_32ns_32ns_32_10_full_dsp_1_U214                    | 7   |        | old_scale   | fexp  | fulldsp | 9       |
-|   add_ln157_fu_1587_p2                                    |     |        | add_ln157   | add   | fabric  | 0       |
-|   add_ln158_fu_1597_p2                                    |     |        | add_ln158   | add   | fabric  | 0       |
-|   faddfsub_32ns_32ns_32_5_full_dsp_1_U208                 | 2   |        | x_assign_2  | fsub  | fulldsp | 4       |
-|   fexp_32ns_32ns_32_10_full_dsp_1_U214                    | 7   |        | e           | fexp  | fulldsp | 9       |
-|   faddfsub_32ns_32ns_32_5_full_dsp_1_U208                 | 2   |        | exp_sum_1   | fsub  | fulldsp | 4       |
-|   fmul_32ns_32ns_32_4_max_dsp_1_U209                      | 3   |        | mul1        | fmul  | maxdsp  | 3       |
-|   faddfsub_32ns_32ns_32_5_full_dsp_1_U208                 | 2   |        | l_new       | fsub  | fulldsp | 4       |
-|   mul_32ns_32ns_64_2_1_U216                               | 4   |        | mul_ln187   | mul   | auto    | 1       |
+|   fsqrt_32ns_32ns_32_16_no_dsp_1_U208                     |     |        | tmp         | fsqrt | fabric  | 15      |
+|   fdiv_32ns_32ns_32_16_no_dsp_1_U205                      |     |        | inv_sqrt_d  | fdiv  | fabric  | 15      |
+|   add_ln63_fu_1288_p2                                     |     |        | add_ln63    | add   | fabric  | 0       |
+|   add_ln63_1_fu_1308_p2                                   |     |        | add_ln63_1  | add   | fabric  | 0       |
+|   add_ln63_2_fu_1345_p2                                   |     |        | add_ln63_2  | add   | fabric  | 0       |
+|   add_ln64_fu_1355_p2                                     |     |        | add_ln64    | add   | fabric  | 0       |
+|   sub_ln64_fu_1374_p2                                     |     |        | sub_ln64    | sub   | fabric  | 0       |
+|   mul_32ns_32ns_63_2_1_U210                               | 4   |        | mul_ln68    | mul   | auto    | 1       |
+|   add_ln77_fu_1416_p2                                     |     |        | add_ln77    | add   | fabric  | 0       |
+|   add_ln87_fu_1447_p2                                     |     |        | add_ln87    | add   | fabric  | 0       |
+|   add_ln88_fu_1453_p2                                     |     |        | add_ln88    | add   | fabric  | 0       |
+|   sub_ln88_fu_1472_p2                                     |     |        | sub_ln88    | sub   | fabric  | 0       |
+|   mul_32ns_32ns_64_2_1_U211                               | 4   |        | mul_ln87    | mul   | auto    | 1       |
+|   mul_32ns_32ns_63_2_1_U210                               | 4   |        | mul_ln104   | mul   | auto    | 1       |
+|   fadd_32ns_32ns_32_5_full_dsp_1_U213                     |     |        | add_ln132   | add   | fabric  | 0       |
+|   faddfsub_32ns_32ns_32_5_full_dsp_1_U203                 | 2   |        | x_assign_1  | fsub  | fulldsp | 4       |
+|   fexp_32ns_32ns_32_10_full_dsp_1_U209                    | 7   |        | old_scale   | fexp  | fulldsp | 9       |
+|   add_ln159_fu_2511_p2                                    |     |        | add_ln159   | add   | fabric  | 0       |
+|   add_ln160_fu_2521_p2                                    |     |        | add_ln160   | add   | fabric  | 0       |
+|   faddfsub_32ns_32ns_32_5_full_dsp_1_U203                 | 2   |        | x_assign_2  | fsub  | fulldsp | 4       |
+|   fexp_32ns_32ns_32_10_full_dsp_1_U209                    | 7   |        | e           | fexp  | fulldsp | 9       |
+|   faddfsub_32ns_32ns_32_5_full_dsp_1_U203                 | 2   |        | exp_sum_1   | fsub  | fulldsp | 4       |
+|   fmul_32ns_32ns_32_4_max_dsp_1_U204                      | 3   |        | mul1        | fmul  | maxdsp  | 3       |
+|   faddfsub_32ns_32ns_32_5_full_dsp_1_U203                 | 2   |        | l_new       | fsub  | fulldsp | 4       |
+|   mul_32ns_32ns_64_2_1_U211                               | 4   |        | mul_ln189   | mul   | auto    | 1       |
 |  + flash_attention_hls_Pipeline_LOAD_Q_VITIS_LOOP_69_1    | 0   |        |             |       |         |         |
 |    add_ln68_3_fu_256_p2                                   |     |        | add_ln68_3  | add   | fabric  | 0       |
 |    add_ln68_2_fu_265_p2                                   |     |        | add_ln68_2  | add   | fabric  | 0       |
@@ -283,23 +281,20 @@
 |    fmul_32ns_32ns_32_4_max_dsp_1_U97                      | 3   |        | s           | fmul  | maxdsp  | 3       |
 |    add_ln119_fu_1784_p2                                   |     |        | add_ln119   | add   | fabric  | 0       |
 |    add_ln106_fu_1752_p2                                   |     |        | add_ln106   | add   | fabric  | 0       |
-|  + flash_attention_hls_Pipeline_FIND_MAX                  | 0   |        |             |       |         |         |
-|    add_ln136_fu_112_p2                                    |     |        | add_ln136   | add   | fabric  | 0       |
-|    add_ln138_fu_122_p2                                    |     |        | add_ln138   | add   | fabric  | 0       |
-|  + flash_attention_hls_Pipeline_VITIS_LOOP_160_4          | 0   |        |             |       |         |         |
-|    add_ln160_fu_348_p2                                    |     |        | add_ln160   | add   | fabric  | 0       |
+|  + flash_attention_hls_Pipeline_VITIS_LOOP_162_4          | 0   |        |             |       |         |         |
+|    add_ln162_fu_348_p2                                    |     |        | add_ln162   | add   | fabric  | 0       |
 |  + flash_attention_hls_Pipeline_UPDATE_ACC                | 0   |        |             |       |         |         |
-|    fdiv_32ns_32ns_32_16_no_dsp_1_U180                     |     |        | div235_1    | fdiv  | fabric  | 15      |
-|    fdiv_32ns_32ns_32_16_no_dsp_1_U181                     |     |        | div235_2    | fdiv  | fabric  | 15      |
-|    fdiv_32ns_32ns_32_16_no_dsp_1_U182                     |     |        | div235_3    | fdiv  | fabric  | 15      |
-|    add_ln172_fu_372_p2                                    |     |        | add_ln172   | add   | fabric  | 0       |
-|  + flash_attention_hls_Pipeline_STORE_O_VITIS_LOOP_188_5  | 0   |        |             |       |         |         |
-|    add_ln187_3_fu_274_p2                                  |     |        | add_ln187_3 | add   | fabric  | 0       |
-|    add_ln187_fu_283_p2                                    |     |        | add_ln187   | add   | fabric  | 0       |
-|    add_ln187_1_fu_381_p2                                  |     |        | add_ln187_1 | add   | fabric  | 0       |
-|    add_ln187_2_fu_398_p2                                  |     |        | add_ln187_2 | add   | fabric  | 0       |
-|    add_ln190_fu_343_p2                                    |     |        | add_ln190   | add   | fabric  | 0       |
-|    add_ln188_fu_349_p2                                    |     |        | add_ln188   | add   | fabric  | 0       |
+|    fdiv_32ns_32ns_32_16_no_dsp_1_U175                     |     |        | div237_1    | fdiv  | fabric  | 15      |
+|    fdiv_32ns_32ns_32_16_no_dsp_1_U176                     |     |        | div237_2    | fdiv  | fabric  | 15      |
+|    fdiv_32ns_32ns_32_16_no_dsp_1_U177                     |     |        | div237_3    | fdiv  | fabric  | 15      |
+|    add_ln174_fu_372_p2                                    |     |        | add_ln174   | add   | fabric  | 0       |
+|  + flash_attention_hls_Pipeline_STORE_O_VITIS_LOOP_190_5  | 0   |        |             |       |         |         |
+|    add_ln189_3_fu_274_p2                                  |     |        | add_ln189_3 | add   | fabric  | 0       |
+|    add_ln189_fu_283_p2                                    |     |        | add_ln189   | add   | fabric  | 0       |
+|    add_ln189_1_fu_381_p2                                  |     |        | add_ln189_1 | add   | fabric  | 0       |
+|    add_ln189_2_fu_398_p2                                  |     |        | add_ln189_2 | add   | fabric  | 0       |
+|    add_ln192_fu_343_p2                                    |     |        | add_ln192   | add   | fabric  | 0       |
+|    add_ln190_fu_349_p2                                    |     |        | add_ln190   | add   | fabric  | 0       |
 +-----------------------------------------------------------+-----+--------+-------------+-------+---------+---------+
 
 
@@ -316,29 +311,29 @@
 |   gmem1_m_axi_U                       | interface     | m_axi     | 4    |      |        |            |      |         |                  |
 |   gmem2_m_axi_U                       | interface     | m_axi     | 4    |      |        |            |      |         |                  |
 |   gmem3_m_axi_U                       | interface     | m_axi     | 4    |      |        |            |      |         |                  |
-|   fdiv_32ns_32ns_32_16_no_dsp_1_U210  | rom_np array  |           | 2    |      |        | Qbuf       | auto | 1       | 32, 64, 1        |
-|   Qbuf_1_U                            | rom_np array  |           | 2    |      |        | Qbuf_1     | auto | 1       | 32, 64, 1        |
+|   fadd_32ns_32ns_32_5_full_dsp_1_U212 | rom_np array  |           | 2    |      |        | Qbuf       | auto | 1       | 32, 64, 1        |
+|   fdiv_32ns_32ns_32_16_no_dsp_1_U205  | rom_np array  |           | 2    |      |        | Qbuf_1     | auto | 1       | 32, 64, 1        |
 |   Qbuf_2_U                            | rom_np array  |           | 2    |      |        | Qbuf_2     | auto | 1       | 32, 64, 1        |
 |   Qbuf_3_U                            | rom_np array  |           | 2    |      |        | Qbuf_3     | auto | 1       | 32, 64, 1        |
 |   Kbuf_U                              | rom_np array  |           | 2    |      |        | Kbuf       | auto | 1       | 32, 64, 1        |
-|   fmul_32ns_32ns_32_4_max_dsp_1_U221  | rom_np array  |           | 2    |      |        | Kbuf_1     | auto | 1       | 32, 64, 1        |
-|   Kbuf_2_U                            | rom_np array  |           | 2    |      |        | Kbuf_2     | auto | 1       | 32, 64, 1        |
+|   Kbuf_1_U                            | rom_np array  |           | 2    |      |        | Kbuf_1     | auto | 1       | 32, 64, 1        |
+|   fmul_32ns_32ns_32_4_max_dsp_1_U216  | rom_np array  |           | 2    |      |        | Kbuf_2     | auto | 1       | 32, 64, 1        |
 |   Kbuf_3_U                            | rom_np array  |           | 2    |      |        | Kbuf_3     | auto | 1       | 32, 64, 1        |
-|   fmul_32ns_32ns_32_4_max_dsp_1_U221  | ram_1p array  |           | 2    |      |        | Vbuf       | auto | 1       | 32, 64, 1        |
-|   Vbuf_1_U                            | ram_1p array  |           | 2    |      |        | Vbuf_1     | auto | 1       | 32, 64, 1        |
+|   Vbuf_U                              | ram_1p array  |           | 2    |      |        | Vbuf       | auto | 1       | 32, 64, 1        |
+|   fmul_32ns_32ns_32_4_max_dsp_1_U216  | ram_1p array  |           | 2    |      |        | Vbuf_1     | auto | 1       | 32, 64, 1        |
 |   Vbuf_2_U                            | ram_1p array  |           | 2    |      |        | Vbuf_2     | auto | 1       | 32, 64, 1        |
-|   fadd_32ns_32ns_32_5_full_dsp_1_U218 | ram_1p array  |           | 2    |      |        | Vbuf_3     | auto | 1       | 32, 64, 1        |
-|   scores_U                            | ram_1p array  |           | 1    |      |        | scores     | auto | 1       | 32, 64, 1        |
+|   Vbuf_3_U                            | ram_1p array  |           | 2    |      |        | Vbuf_3     | auto | 1       | 32, 64, 1        |
+|   fadd_32ns_32ns_32_5_full_dsp_1_U213 | ram_1p array  |           | 1    |      |        | scores     | auto | 1       | 32, 64, 1        |
 |   acc_U                               | ram_s2p array |           | 2    |      |        | acc        | auto | 1       | 32, 64, 1        |
 |   acc_1_U                             | ram_s2p array |           | 2    |      |        | acc_1      | auto | 1       | 32, 64, 1        |
 |   acc_2_U                             | ram_s2p array |           | 2    |      |        | acc_2      | auto | 1       | 32, 64, 1        |
 |   acc_3_U                             | ram_s2p array |           | 2    |      |        | acc_3      | auto | 1       | 32, 64, 1        |
 |   m_U                                 | ram_1p array  |           |      |      |        | m          | auto | 1       | 32, 8, 1         |
-|   fmul_32ns_32ns_32_4_max_dsp_1_U222  | ram_1p array  |           |      |      |        | l          | auto | 1       | 32, 8, 1         |
-|   weighted_U                          | ram_t2p array |           |      |      |        | weighted   | auto | 1       | 32, 8, 1         |
+|   l_U                                 | ram_1p array  |           |      |      |        | l          | auto | 1       | 32, 8, 1         |
+|   fmul_32ns_32ns_32_4_max_dsp_1_U217  | ram_t2p array |           |      |      |        | weighted   | auto | 1       | 32, 8, 1         |
 |   weighted_1_U                        | ram_t2p array |           |      |      |        | weighted_1 | auto | 1       | 32, 8, 1         |
-|   fadd_32ns_32ns_32_5_full_dsp_1_U219 | ram_t2p array |           |      |      |        | weighted_2 | auto | 1       | 32, 8, 1         |
-|   fmul_32ns_32ns_32_4_max_dsp_1_U222  | ram_t2p array |           |      |      |        | weighted_3 | auto | 1       | 32, 8, 1         |
+|   weighted_2_U                        | ram_t2p array |           |      |      |        | weighted_2 | auto | 1       | 32, 8, 1         |
+|   fadd_32ns_32ns_32_5_full_dsp_1_U214 | ram_t2p array |           |      |      |        | weighted_3 | auto | 1       | 32, 8, 1         |
 +---------------------------------------+---------------+-----------+------+------+--------+------------+------+---------+------------------+
 
 
@@ -371,12 +366,12 @@
 | pipeline        | II=1                                              | flash_attention.cpp:94 in flash_attention_hls            |
 | pipeline        | II=1                                              | flash_attention.cpp:107 in flash_attention_hls           |
 | unroll          |                                                   | flash_attention.cpp:111 in flash_attention_hls           |
-| pipeline        | II=1                                              | flash_attention.cpp:137 in flash_attention_hls           |
-| array_partition | variable=weighted cyclic factor=4 dim=1           | flash_attention.cpp:148 in flash_attention_hls, weighted |
-| unroll          |                                                   | flash_attention.cpp:152 in flash_attention_hls           |
-| unroll          | factor=4                                          | flash_attention.cpp:161 in flash_attention_hls           |
-| unroll          | factor=4                                          | flash_attention.cpp:173 in flash_attention_hls           |
-| pipeline        | II=1                                              | flash_attention.cpp:189 in flash_attention_hls           |
+| unroll          |                                                   | flash_attention.cpp:137 in flash_attention_hls           |
+| array_partition | variable=weighted cyclic factor=4 dim=1           | flash_attention.cpp:150 in flash_attention_hls, weighted |
+| unroll          |                                                   | flash_attention.cpp:154 in flash_attention_hls           |
+| unroll          | factor=4                                          | flash_attention.cpp:163 in flash_attention_hls           |
+| unroll          | factor=4                                          | flash_attention.cpp:175 in flash_attention_hls           |
+| pipeline        | II=1                                              | flash_attention.cpp:191 in flash_attention_hls           |
 +-----------------+---------------------------------------------------+----------------------------------------------------------+
 
 

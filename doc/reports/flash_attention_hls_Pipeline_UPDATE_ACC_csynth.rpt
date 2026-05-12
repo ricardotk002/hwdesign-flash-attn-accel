@@ -3,7 +3,7 @@
 ================================================================
 == Vitis HLS Report for 'flash_attention_hls_Pipeline_UPDATE_ACC'
 ================================================================
-* Date:           Sun May 10 18:11:12 2026
+* Date:           Tue May 12 12:33:24 2026
 
 * Version:        2023.2 (Build 4023990 on Oct 11 2023)
 * Project:        flash_attention_proj
@@ -73,9 +73,9 @@
     +------------------------------------+-------------------------------+---------+----+---+----+-----+
     |              Instance              |             Module            | BRAM_18K| DSP| FF| LUT| URAM|
     +------------------------------------+-------------------------------+---------+----+---+----+-----+
-    |fdiv_32ns_32ns_32_16_no_dsp_1_U180  |fdiv_32ns_32ns_32_16_no_dsp_1  |        0|   0|  0|   0|    0|
-    |fdiv_32ns_32ns_32_16_no_dsp_1_U181  |fdiv_32ns_32ns_32_16_no_dsp_1  |        0|   0|  0|   0|    0|
-    |fdiv_32ns_32ns_32_16_no_dsp_1_U182  |fdiv_32ns_32ns_32_16_no_dsp_1  |        0|   0|  0|   0|    0|
+    |fdiv_32ns_32ns_32_16_no_dsp_1_U175  |fdiv_32ns_32ns_32_16_no_dsp_1  |        0|   0|  0|   0|    0|
+    |fdiv_32ns_32ns_32_16_no_dsp_1_U176  |fdiv_32ns_32ns_32_16_no_dsp_1  |        0|   0|  0|   0|    0|
+    |fdiv_32ns_32ns_32_16_no_dsp_1_U177  |fdiv_32ns_32ns_32_16_no_dsp_1  |        0|   0|  0|   0|    0|
     +------------------------------------+-------------------------------+---------+----+---+----+-----+
     |Total                               |                               |        0|   0|  0|   0|    0|
     +------------------------------------+-------------------------------+---------+----+---+----+-----+
@@ -93,14 +93,14 @@
     +------------------------+----------+----+---+----+------------+------------+
     |      Variable Name     | Operation| DSP| FF| LUT| Bitwidth P0| Bitwidth P1|
     +------------------------+----------+----+---+----+------------+------------+
-    |add_ln172_fu_372_p2     |         +|   0|  0|  14|           6|           3|
-    |icmp_ln174_1_fu_334_p2  |      icmp|   0|  0|  39|          32|          32|
-    |icmp_ln174_2_fu_350_p2  |      icmp|   0|  0|  39|          32|          32|
-    |icmp_ln174_3_fu_366_p2  |      icmp|   0|  0|  39|          32|          32|
-    |icmp_ln174_fu_328_p2    |      icmp|   0|  0|  39|          32|          32|
-    |or_ln172_1_fu_340_p2    |        or|   0|  0|   5|           5|           2|
-    |or_ln172_2_fu_356_p2    |        or|   0|  0|   5|           5|           2|
-    |or_ln172_fu_292_p2      |        or|   0|  0|   5|           5|           1|
+    |add_ln174_fu_372_p2     |         +|   0|  0|  14|           6|           3|
+    |icmp_ln176_1_fu_334_p2  |      icmp|   0|  0|  39|          32|          32|
+    |icmp_ln176_2_fu_350_p2  |      icmp|   0|  0|  39|          32|          32|
+    |icmp_ln176_3_fu_366_p2  |      icmp|   0|  0|  39|          32|          32|
+    |icmp_ln176_fu_328_p2    |      icmp|   0|  0|  39|          32|          32|
+    |or_ln174_1_fu_340_p2    |        or|   0|  0|   5|           5|           2|
+    |or_ln174_2_fu_356_p2    |        or|   0|  0|   5|           5|           2|
+    |or_ln174_fu_292_p2      |        or|   0|  0|   5|           5|           1|
     |ap_enable_pp0           |       xor|   0|  0|   2|           1|           2|
     +------------------------+----------+----+---+----+------------+------------+
     |Total                   |          |   0|  0| 187|         150|         138|
@@ -131,9 +131,9 @@
     |acc_addr_reg_422                   |   6|   0|    6|          0|
     |acc_load_reg_462                   |  32|   0|   32|          0|
     |add1_reg_542                       |  32|   0|   32|          0|
-    |add234_1_reg_547                   |  32|   0|   32|          0|
-    |add234_2_reg_552                   |  32|   0|   32|          0|
-    |add234_3_reg_557                   |  32|   0|   32|          0|
+    |add236_1_reg_547                   |  32|   0|   32|          0|
+    |add236_2_reg_552                   |  32|   0|   32|          0|
+    |add236_3_reg_557                   |  32|   0|   32|          0|
     |ap_CS_fsm                          |   1|   0|    1|          0|
     |ap_done_reg                        |   1|   0|    1|          0|
     |ap_enable_reg_pp0_iter1            |   1|   0|    1|          0|
@@ -189,18 +189,18 @@
     |ap_loop_exit_ready_pp0_iter7_reg   |   1|   0|    1|          0|
     |ap_loop_exit_ready_pp0_iter8_reg   |   1|   0|    1|          0|
     |ap_loop_exit_ready_pp0_iter9_reg   |   1|   0|    1|          0|
-    |div235_1_reg_567                   |  32|   0|   32|          0|
-    |div235_2_reg_572                   |  32|   0|   32|          0|
-    |div235_3_reg_577                   |  32|   0|   32|          0|
+    |div237_1_reg_567                   |  32|   0|   32|          0|
+    |div237_2_reg_572                   |  32|   0|   32|          0|
+    |div237_3_reg_577                   |  32|   0|   32|          0|
     |div_reg_562                        |  32|   0|   32|          0|
-    |icmp_ln174_1_reg_450               |   1|   0|    1|          0|
-    |icmp_ln174_2_reg_454               |   1|   0|    1|          0|
-    |icmp_ln174_3_reg_458               |   1|   0|    1|          0|
-    |icmp_ln174_reg_446                 |   1|   0|    1|          0|
+    |icmp_ln176_1_reg_450               |   1|   0|    1|          0|
+    |icmp_ln176_2_reg_454               |   1|   0|    1|          0|
+    |icmp_ln176_3_reg_458               |   1|   0|    1|          0|
+    |icmp_ln176_reg_446                 |   1|   0|    1|          0|
     |lshr_ln5_reg_417                   |   3|   0|    3|          0|
-    |mul231_1_reg_512                   |  32|   0|   32|          0|
-    |mul231_2_reg_522                   |  32|   0|   32|          0|
-    |mul231_3_reg_532                   |  32|   0|   32|          0|
+    |mul233_1_reg_512                   |  32|   0|   32|          0|
+    |mul233_2_reg_522                   |  32|   0|   32|          0|
+    |mul233_3_reg_532                   |  32|   0|   32|          0|
     |mul3_reg_502                       |  32|   0|   32|          0|
     |weighted_1_load_reg_517            |  32|   0|   32|          0|
     |weighted_2_load_reg_527            |  32|   0|   32|          0|
@@ -211,10 +211,10 @@
     |acc_2_addr_reg_434                 |  64|  32|    6|          0|
     |acc_3_addr_reg_440                 |  64|  32|    6|          0|
     |acc_addr_reg_422                   |  64|  32|    6|          0|
-    |icmp_ln174_1_reg_450               |  64|  32|    1|          0|
-    |icmp_ln174_2_reg_454               |  64|  32|    1|          0|
-    |icmp_ln174_3_reg_458               |  64|  32|    1|          0|
-    |icmp_ln174_reg_446                 |  64|  32|    1|          0|
+    |icmp_ln176_1_reg_450               |  64|  32|    1|          0|
+    |icmp_ln176_2_reg_454               |  64|  32|    1|          0|
+    |icmp_ln176_3_reg_458               |  64|  32|    1|          0|
+    |icmp_ln176_reg_446                 |  64|  32|    1|          0|
     |lshr_ln5_reg_417                   |  64|  32|    3|          0|
     +-----------------------------------+----+----+-----+-----------+
     |Total                              |1308| 288|  763|          0|
@@ -235,46 +235,46 @@
 |ap_done               |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
 |ap_idle               |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
 |ap_ready              |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_2294_p_din0    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_2294_p_din1    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_2294_p_opcode  |  out|    2|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_2294_p_dout0   |   in|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_2294_p_ce      |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_2298_p_din0    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_2298_p_din1    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_2298_p_opcode  |  out|    2|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_2298_p_dout0   |   in|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_2298_p_ce      |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_2302_p_din0    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_2302_p_din1    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_2302_p_opcode  |  out|    2|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_2302_p_dout0   |   in|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_2302_p_ce      |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_2306_p_din0    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_2306_p_din1    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_2306_p_opcode  |  out|    2|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_2306_p_dout0   |   in|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_2306_p_ce      |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_936_p_din0     |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_936_p_din1     |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_936_p_dout0    |   in|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_936_p_ce       |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_2310_p_din0    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_2310_p_din1    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_2310_p_dout0   |   in|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_2310_p_ce      |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_2314_p_din0    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_2314_p_din1    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_2314_p_dout0   |   in|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_2314_p_ce      |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_2318_p_din0    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_2318_p_din1    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_2318_p_dout0   |   in|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_2318_p_ce      |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_940_p_din0     |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_940_p_din1     |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_940_p_dout0    |   in|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
-|grp_fu_940_p_ce       |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_3352_p_din0    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_3352_p_din1    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_3352_p_opcode  |  out|    2|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_3352_p_dout0   |   in|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_3352_p_ce      |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_3356_p_din0    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_3356_p_din1    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_3356_p_opcode  |  out|    2|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_3356_p_dout0   |   in|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_3356_p_ce      |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_3360_p_din0    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_3360_p_din1    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_3360_p_opcode  |  out|    2|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_3360_p_dout0   |   in|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_3360_p_ce      |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_3364_p_din0    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_3364_p_din1    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_3364_p_opcode  |  out|    2|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_3364_p_dout0   |   in|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_3364_p_ce      |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_992_p_din0     |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_992_p_din1     |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_992_p_dout0    |   in|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_992_p_ce       |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_3368_p_din0    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_3368_p_din1    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_3368_p_dout0   |   in|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_3368_p_ce      |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_3372_p_din0    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_3372_p_din1    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_3372_p_dout0   |   in|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_3372_p_ce      |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_3376_p_din0    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_3376_p_din1    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_3376_p_dout0   |   in|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_3376_p_ce      |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_996_p_din0     |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_996_p_din1     |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_996_p_dout0    |   in|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
+|grp_fu_996_p_ce       |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_UPDATE_ACC|  return value|
 |d                     |   in|   32|     ap_none|                                        d|        scalar|
 |i_4                   |   in|    3|     ap_none|                                      i_4|        scalar|
 |acc_address0          |  out|    6|   ap_memory|                                      acc|         array|

@@ -3,7 +3,7 @@
 ================================================================
 == Vitis HLS Report for 'flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J'
 ================================================================
-* Date:           Sun May 10 18:11:11 2026
+* Date:           Tue May 12 12:33:24 2026
 
 * Version:        2023.2 (Build 4023990 on Oct 11 2023)
 * Project:        flash_attention_proj
@@ -163,13 +163,13 @@
     |or_ln112_5_fu_1718_p2      |        or|   0|  0|   6|           6|           3|
     |or_ln112_6_fu_1732_p2      |        or|   0|  0|   6|           6|           3|
     |or_ln112_fu_1648_p2        |        or|   0|  0|   6|           6|           1|
-    |tmp_18_fu_1530_p2          |        or|   0|  0|   6|           6|           1|
-    |tmp_19_fu_1544_p2          |        or|   0|  0|   6|           6|           2|
-    |tmp_20_fu_1558_p2          |        or|   0|  0|   6|           6|           2|
-    |tmp_21_fu_1572_p2          |        or|   0|  0|   6|           6|           3|
-    |tmp_22_fu_1586_p2          |        or|   0|  0|   6|           6|           3|
-    |tmp_23_fu_1600_p2          |        or|   0|  0|   6|           6|           3|
-    |tmp_24_fu_1614_p2          |        or|   0|  0|   6|           6|           3|
+    |tmp_38_fu_1530_p2          |        or|   0|  0|   6|           6|           1|
+    |tmp_39_fu_1544_p2          |        or|   0|  0|   6|           6|           2|
+    |tmp_40_fu_1558_p2          |        or|   0|  0|   6|           6|           2|
+    |tmp_41_fu_1572_p2          |        or|   0|  0|   6|           6|           3|
+    |tmp_42_fu_1586_p2          |        or|   0|  0|   6|           6|           3|
+    |tmp_43_fu_1600_p2          |        or|   0|  0|   6|           6|           3|
+    |tmp_44_fu_1614_p2          |        or|   0|  0|   6|           6|           3|
     |dot_11_fu_1821_p3          |    select|   0|  0|  32|           1|          32|
     |dot_13_fu_1826_p3          |    select|   0|  0|  32|           1|          32|
     |dot_15_fu_1831_p3          |    select|   0|  0|  32|           1|          32|
@@ -882,47 +882,47 @@
 |ap_done               |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
 |ap_idle               |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
 |ap_ready              |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_2294_p_din0    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_2294_p_din1    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_2294_p_opcode  |  out|    2|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_2294_p_dout0   |   in|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_2294_p_ce      |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_2298_p_din0    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_2298_p_din1    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_2298_p_opcode  |  out|    2|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_2298_p_dout0   |   in|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_2298_p_ce      |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_2302_p_din0    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_2302_p_din1    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_2302_p_opcode  |  out|    2|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_2302_p_dout0   |   in|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_2302_p_ce      |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_2306_p_din0    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_2306_p_din1    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_2306_p_opcode  |  out|    2|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_2306_p_dout0   |   in|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_2306_p_ce      |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_930_p_din0     |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_930_p_din1     |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_930_p_opcode   |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_930_p_dout0    |   in|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_930_p_ce       |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_936_p_din0     |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_936_p_din1     |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_936_p_dout0    |   in|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_936_p_ce       |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_2310_p_din0    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_2310_p_din1    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_2310_p_dout0   |   in|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_2310_p_ce      |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_2314_p_din0    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_2314_p_din1    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_2314_p_dout0   |   in|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_2314_p_ce      |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_2318_p_din0    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_2318_p_din1    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_2318_p_dout0   |   in|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
-|grp_fu_2318_p_ce      |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_3352_p_din0    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_3352_p_din1    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_3352_p_opcode  |  out|    2|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_3352_p_dout0   |   in|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_3352_p_ce      |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_3356_p_din0    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_3356_p_din1    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_3356_p_opcode  |  out|    2|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_3356_p_dout0   |   in|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_3356_p_ce      |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_3360_p_din0    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_3360_p_din1    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_3360_p_opcode  |  out|    2|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_3360_p_dout0   |   in|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_3360_p_ce      |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_3364_p_din0    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_3364_p_din1    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_3364_p_opcode  |  out|    2|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_3364_p_dout0   |   in|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_3364_p_ce      |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_986_p_din0     |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_986_p_din1     |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_986_p_opcode   |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_986_p_dout0    |   in|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_986_p_ce       |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_992_p_din0     |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_992_p_din1     |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_992_p_dout0    |   in|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_992_p_ce       |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_3368_p_din0    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_3368_p_din1    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_3368_p_dout0   |   in|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_3368_p_ce      |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_3372_p_din0    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_3372_p_din1    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_3372_p_dout0   |   in|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_3372_p_ce      |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_3376_p_din0    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_3376_p_din1    |  out|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_3376_p_dout0   |   in|   32|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
+|grp_fu_3376_p_ce      |  out|    1|  ap_ctrl_hs|  flash_attention_hls_Pipeline_SCORE_LOOP_I_SCORE_LOOP_J|  return value|
 |k_lim                 |   in|   32|     ap_none|                                                   k_lim|        scalar|
 |mul_ln104             |   in|   63|     ap_none|                                               mul_ln104|        scalar|
 |Qbuf_address0         |  out|    6|   ap_memory|                                                    Qbuf|         array|
